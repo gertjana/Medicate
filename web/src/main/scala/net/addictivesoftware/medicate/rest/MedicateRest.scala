@@ -12,9 +12,6 @@ import net.liftweb.json.JsonDSL._
 
 object MedicateRest extends RestHelper with RestUtils {
     serve {
-      case "api" :: _ XmlGet _ =>
-
-
         // single book
         case "api" :: key :: "medicine" :: AsLong(id) :: _ XmlGet _=>
             {
@@ -25,12 +22,17 @@ object MedicateRest extends RestHelper with RestUtils {
             }
         // list of medicine
         case "api" :: key :: "medicine" :: "all" :: _ XmlGet _=>
-          {
-            <Medicine>
-              {
-                Medicine.findAll.map(medicine => medicine.toXml)
-              }
-            </Medicine>
-          }
+            {
+              <Medicine>
+                {
+                  Medicine.findAll.map(medicine => medicine.toXml)
+                }
+              </Medicine>
+            }
+        case "api" :: "version" :: _ XmlGet _=>
+            {
+              <api version="0.1.0">This is the REST API for Medicate</api>
+            }
+
     }
 }
