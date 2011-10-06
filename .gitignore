@@ -1,1 +1,6 @@
 target/
+*.ipr
+*.iws
+*.log
+*.db
+*.swp
