@@ -11,28 +11,32 @@ import net.liftweb.json._
 import net.liftweb.json.JsonDSL._
 
 object MedicateRest extends RestHelper with RestUtils {
-    serve {
+    serve( "api" / "medicine" prefix {
         // single book
-        case "api" :: key :: "medicine" :: AsLong(id) :: _ XmlGet _=>
+        case AsLong(id) :: _ XmlGet _=>
             {
               Medicine.findByKey(id) match {
                 case Full(medicine) => {medicine.toXml}
-                case (_) => NotFoundResponse("Medicine with id " + id + " not found\r\n")
+                case (_) => XmlResponse(errorNode("Medicine with id " + id + " does not exist."), 404, "application/xml")
               }
             }
         // list of medicine
-        case "api" :: key :: "medicine" :: "all" :: _ XmlGet _=>
+        case Nil XmlGet _=>
             {
-              <Medicine>
+              <Medicines>
                 {
                   Medicine.findAll.map(medicine => medicine.toXml)
                 }
-              </Medicine>
-            }
-        case "api" :: "version" :: _ XmlGet _=>
-            {
-              <api version="0.1.0">This is the REST API for Medicate</api>
+              </Medicines>
             }
 
+    })
+
+    serve {
+      case "api" :: "version" :: _ XmlGet _=>
+          {
+            <api version="0.1.0">This is the REST API for Medicate</api>
+          }
     }
+
 }
