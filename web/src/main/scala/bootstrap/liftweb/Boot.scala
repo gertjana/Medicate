@@ -10,6 +10,7 @@ import Helpers._
 import _root_.net.liftweb.mapper.{DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, StandardDBVendor}
 import _root_.java.sql.{Connection, DriverManager}
 import _root_.net.addictivesoftware.medicate.model._
+import _root_.net.addictivesoftware.medicate.rest._
 
 
 /**
@@ -32,17 +33,26 @@ class Boot {
 
     // where to search snippet
     LiftRules.addToPackages("net.addictivesoftware.medicate")
-    Schemifier.schemify(true, Schemifier.infoF _, User)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Medicine, Dose)
+
+    val myLoc = Loc("HomePage", "index" :: Nil, "Home Page", Hidden)
+    val crudMenu = Medicine.menus ::: Dose.menus
+    val allMenus = Menu(myLoc) :: User.sitemap
+    val mySiteMap = SiteMap((allMenus ::: crudMenu): _*)
+
 
     // Build SiteMap
-    def sitemap() = SiteMap(
-      Menu("Home") / "index" >> User.AddUserMenusAfter, // Simple menu form
-      // Menu with special Link
-      Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
-	       "Static Content")))
+    def sitemap() = //SiteMap(
+      mySiteMap
+ //     Menu("Home") / "index" >> User.AddUserMenusAfter, // Simple menu form
+ //     // Menu with special Link
+ //     Menu(Loc("Static", Link(List("static"), true, "/static/index"),
+//       "Static Content"))
+  //  )
+    LiftRules.setSiteMap(mySiteMap)
+    //LiftRules.setSiteMapFunc(() => User.sitemapMutator(sitemap()))
 
-    LiftRules.setSiteMapFunc(() => User.sitemapMutator(sitemap()))
-
+    LiftRules.dispatch.append(MedicateRest)
     /*
      * Show the spinny image when an Ajax call starts
      */

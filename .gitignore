@@ -1,2 +1,8 @@
 target/
 .idea/
+*.ipr
+*.iws
+*.log
+*.db
+*.swp
+
