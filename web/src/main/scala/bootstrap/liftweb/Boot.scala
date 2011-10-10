@@ -33,10 +33,10 @@ class Boot {
 
     // where to search snippet
     LiftRules.addToPackages("net.addictivesoftware.medicate")
-    Schemifier.schemify(true, Schemifier.infoF _, User, Medicine, Dose)
+    Schemifier.schemify(true, Schemifier.infoF _, User, Medicine, Dose, Stock)
 
     val myLoc = Loc("HomePage", "index" :: Nil, "Home Page", Hidden)
-    val crudMenu = Medicine.menus ::: Dose.menus
+    val crudMenu = Medicine.menus ::: Dose.menus ::: Stock.menus
     val allMenus = Menu(myLoc) :: User.sitemap
     val mySiteMap = SiteMap((allMenus ::: crudMenu): _*)
 
