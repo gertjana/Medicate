@@ -10,16 +10,16 @@ import _root_.net.liftweb.json.JsonDSL._
 import _root_.scala.xml.Node
 
 class Dose extends LongKeyedMapper[Dose] with IdPK {
-   def getSingleton = Dose
+  def getSingleton = Dose
 
-   object user extends MappedLongForeignKey(this, User) {
-     override def validSelectValues = { Full(for (user <- User.findAll) yield (user.id.is, user.fullName)) }
-   }
-   object medicine extends MappedLongForeignKey(this, Medicine) {
-     override def validSelectValues = { Full(for (medicine <- Medicine.findAll) yield (medicine.id.is, medicine.name.is)) }
-   }
+  object user extends MappedLongForeignKey(this, User) {
+   override def validSelectValues = { Full(for (user <- User.findAll) yield (user.id.is, user.fullName)) }
+  }
+  object medicine extends MappedLongForeignKey(this, Medicine) {
+   override def validSelectValues = { Full(for (medicine <- Medicine.findAll) yield (medicine.id.is, medicine.name.is)) }
+  }
 
-   object schedule extends MappedEnum(this, Schedule)
+  object schedule extends MappedEnum(this, Schedule)
 
   def asJson : JValue = Dose.asJson(this)
   def asXml : Node  = Dose.asXml(this)
@@ -29,7 +29,7 @@ object Dose extends Dose with LongKeyedMetaMapper[Dose] with CRUDify[Long, Dose]
   def asJson (dose : Dose) : JValue = {
     ("dose" ->
       ("id" -> dose.id.is) ~
-      ("medicine" -> dose.medicine.obj.map(_.name.is).openOr("")) ~
+      ("medicine" -> dose.medicine.obj.map(medicine => medicine.toString).openOr("")) ~
       ("schedule" -> dose.schedule.is.toString())
     )
   }

@@ -32,7 +32,7 @@ object Stock extends Stock with LongKeyedMetaMapper[Stock] with CRUDify[Long, St
   def asJson (stock : Stock) : JValue = {
      ("stock" ->
        ("id" -> stock.id.is) ~
-       ("medicine" -> stock.medicine.obj.map(_.name.is).openOr("")) ~
+       ("medicine" -> stock.medicine.obj.map(medicine => medicine.toString).openOr("")) ~
        ("amount" -> stock.amount.is)
      )
    }

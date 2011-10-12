@@ -18,6 +18,8 @@ class Medicine extends LongKeyedMapper[Medicine] with IdPK {
 
   def asJson : JValue = Medicine.asJson(this)
   def asXml : Node  = Medicine.asXml(this)
+
+  override def toString : String = name.is + " (" + amount.is + "mg)"
 }
 
 
@@ -33,6 +35,9 @@ object Medicine extends Medicine with LongKeyedMetaMapper[Medicine] with CRUDify
   }
 
   def asXml (medicine : Medicine) : Node = Xml.toXml(asJson(medicine)).head
+
+
+
 
   override def editMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/")) :: super.editMenuLocParams
   override def viewMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/")) :: super.viewMenuLocParams
