@@ -33,6 +33,7 @@ object MedicateRest extends RestHelper with RestUtils {
           case (_) => XmlResponse(errorNode("Medicine with id " + id + " does not exist."), 404, "application/json")
         }
       }
+
     // list of medicine
     case Nil XmlGet _=> {
         <Medicines>
@@ -41,11 +42,14 @@ object MedicateRest extends RestHelper with RestUtils {
           }
         </Medicines>
       }
+
     case Nil JsonGet _=> {
         JsonWrapper("medicines", Medicine.findAll.map(medicine => medicine.asJson))
        }
   })
 
+  // user authentication
+  // FIXME now has password in the url in plain text
   serve ("api" / "auth" prefix {
     case email :: password :: _ XmlGet _ => {
       User.find(By(User.email, email)) match {
@@ -76,7 +80,6 @@ object MedicateRest extends RestHelper with RestUtils {
     }
   })
 
-
   // user specific calls
   serve ( "api" / "user" prefix {
     //return dosages
@@ -93,6 +96,7 @@ object MedicateRest extends RestHelper with RestUtils {
       JsonWrapper("dosages", Dose.findAll(By(Dose.user, id)).map(dose => dose.asJson))
     }
 
+    // return stock
     case key :: "stock" :: _ XmlGet _=> {
       var id = getUserIdFromKey(key)
       <Stocks>
@@ -106,6 +110,60 @@ object MedicateRest extends RestHelper with RestUtils {
       JsonWrapper("stocks", Stock.findAll(By(Stock.user, id)).map(stock => stock.asJson))
     }
 
+    //return days left for each medicine
+    case key :: "supplies" :: _ XmlGet _=> {
+      var id = getUserIdFromKey(key)
+      val supplies = calculateSupplies(id)
+
+      <Supplies>
+        {
+          supplies.map(kv =>
+            <Supply>
+              <Medicine>{kv._1}</Medicine>
+              <DaysLeft>{kv._2}</DaysLeft>
+            </Supply>
+          )
+        }
+      </Supplies>
+
+    }
+
+    case key :: "supplies" :: _ JsonGet _=> {
+      var id = getUserIdFromKey(key)
+      val supplies:Map[String, Long] = calculateSupplies(id)
+
+      ("Supplies", {
+        supplies.map(kv => {
+          ("Supply",
+            ("Medicine", kv._1) ~
+            ("DaysLeft", kv._2)
+          )
+        })
+      }) : JValue
+    }
   })
+
+  def calculateSupplies(user_id : Long) = {
+      val dosages = Dose.findAll(By(Dose.user, user_id))
+      val dosageMap = scala.collection.mutable.Map[String, Long]();
+
+      //get a map of medicine and the amount of them taken daily
+      dosages.foreach(dose => {
+        val medicine = dose.medicine.obj.map(medicine => medicine.toString).openOr("");
+        dosageMap(medicine) = (dosageMap.getOrElseUpdate(medicine,0)+1)
+      })
+
+      //get a map of medicine and the amount in stock
+      val stockMap = Stock.findAll(By(Stock.user, user_id))
+                          .map(stock => (stock.medicine.obj.map(medicine => medicine.toString).openOr(""), stock.amount.is))
+                          .toMap
+      //merging the maps by medicine, while calculating stock/daily intake
+      mergeMap(List(stockMap, dosageMap.map(kv => (kv._1,kv._2)).toMap))((stock, dailyIntake) => stock / dailyIntake)
+  }
+
+  def mergeMap[A, B](ms: List[Map[A, B]])(f: (B, B) => B): Map[A, B] =
+  (Map[A, B]() /: (for (m <- ms; kv <- m) yield kv)) { (a, kv) =>
+    a + (if (a.contains(kv._1)) kv._1 -> f(a(kv._1), kv._2) else kv)
+  }
 
 }
