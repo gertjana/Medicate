@@ -1,1 +1,8 @@
 manage your medication, amounts, schedules, alerts
+
+This project is maven based, to run it: 
+ - clone this repository
+ - cd to the web/ directory
+ - run mvn jetty:run
+
+a Idea project file is present for those 
