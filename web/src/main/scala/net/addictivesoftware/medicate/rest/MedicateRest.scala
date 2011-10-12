@@ -151,9 +151,9 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
 
       ("Supplies", {
         supplies.map(kv => {
-          ("Supply",
-            ("Medicine", kv._1) ~
-            ("DaysLeft", kv._2)
+          ("Supply" ->
+            ("Medicine" -> kv._1) ~
+            ("DaysLeft" -> kv._2)
           )
         })
       }) : JValue
