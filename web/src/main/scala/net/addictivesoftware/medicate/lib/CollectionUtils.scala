@@ -25,4 +25,9 @@ trait CollectionUtils {
     (Map[A, B]() /: (for (m <- ms; kv <- m) yield kv)) { (a, kv) =>
       a + (if (a.contains(kv._1)) kv._1 -> f(a(kv._1), kv._2) else kv)
     }
+
+  def makeImmutable[A,B](m: scala.collection.mutable.Map[A,B]): Map[A, B] = {
+    m.map(kv => (kv._1,kv._2)).toMap
+  }
+
 }

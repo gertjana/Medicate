@@ -30,7 +30,7 @@ import net.liftweb.json.JsonDSL._
 object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
   serve {
     case "api" :: "version" :: _ XmlGet _=> {<version>0.1.0</version> }
-    case "api" :: "version" :: _ JsonGet _=> { JsonWrapper("version", "0.1.0") }
+    case "api" :: "version" :: _ JsonGet _=> { ("version", "0.1.0"):JValue }
   }
 
   // generic query-ing of medicine
@@ -47,7 +47,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
       {
         Medicine.findByKey(id) match {
           case Full(medicine) => {medicine.asJson}
-          case (_) => XmlResponse(errorNode("Medicine with id " + id + " does not exist."), 404, "application/json")
+          case (_) => JsonResponse("error" -> "Medicine with id %d does not exist.".format(id), 404)
         }
       }
 
@@ -61,7 +61,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
       }
 
     case Nil JsonGet _=> {
-        JsonWrapper("medicines", Medicine.findAll.map(medicine => medicine.asJson))
+        ("medicines", Medicine.findAll.map(medicine => medicine.asJson)):JValue
        }
   })
 
@@ -86,13 +86,13 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
        User.find(By(User.email, user)) match {
         case Full(user) =>
           if (user.validated && user.password.match_?(pass)) {
-            JsonWrapper("key", user.uniqueId.is);
+            ("key", user.uniqueId.is):JValue;
           } else {
-            JsonResponse(JsonWrapper("error", "failed to authenticate or user is not validated"), Nil, Nil, 402);
+            JsonResponse(("error", "failed to authenticate or user is not validated"):JValue, Nil, Nil, 402);
           }
 
         case (_) =>
-          JsonResponse(JsonWrapper("error", "unknown email"), Nil, Nil, 402);
+          JsonResponse(("error", "unknown email"):JValue, Nil, Nil, 402);
       }
     }
   })
@@ -102,29 +102,29 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
     //return dosages
     case key :: "dosages" :: _ XmlGet _=> {
       var id = getUserIdFromKey(key)
-      <Dosages>
+      <dosages>
         {
           Dose.findAll(By(Dose.user, id)).map(dose => dose.asXml)
         }
-      </Dosages>
+      </dosages>
     }
     case key :: "dosages" :: _ JsonGet _=> {
       var id = getUserIdFromKey(key)
-      JsonWrapper("dosages", Dose.findAll(By(Dose.user, id)).map(dose => dose.asJson))
+      ("dosages" -> Dose.findAll(By(Dose.user, id)).map(dose => dose.asJson)) : JValue
     }
 
     // return stock
     case key :: "stock" :: _ XmlGet _=> {
       var id = getUserIdFromKey(key)
-      <Stocks>
+      <stocks>
         {
           Stock.findAll(By(Stock.user, id)).map(stock => stock.asXml)
         }
-      </Stocks>
+      </stocks>
     }
     case key :: "stock" :: _ JsonGet _=> {
       var id = getUserIdFromKey(key)
-      JsonWrapper("stocks", Stock.findAll(By(Stock.user, id)).map(stock => stock.asJson))
+      ("stocks", Stock.findAll(By(Stock.user, id)).map(stock => stock.asJson)):JValue
     }
 
     //return days left for each medicine
@@ -132,16 +132,16 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
       var id = getUserIdFromKey(key)
       val supplies = calculateSupplies(id)
 
-      <Supplies>
+      <supplies>
         {
           supplies.map(kv =>
-            <Supply>
-              <Medicine>{kv._1}</Medicine>
-              <DaysLeft>{kv._2}</DaysLeft>
-            </Supply>
+            <supply>
+              <medicine>{kv._1}</medicine>
+              <daysLeft>{kv._2}</daysLeft>
+            </supply>
           )
         }
-      </Supplies>
+      </supplies>
 
     }
 
@@ -175,7 +175,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
                           .map(stock => (stock.medicine.obj.map(medicine => medicine.toString).openOr(""), stock.amount.is))
                           .toMap
       //merging the maps by medicine, while calculating stock/daily intake
-      mergeMap(List(stockMap, dosageMap.map(kv => (kv._1,kv._2)).toMap))((stock, dailyIntake) => stock / dailyIntake)
+      mergeMap(List(stockMap, makeImmutable(dosageMap)))((stock, dailyIntake) => stock / dailyIntake)
   }
 
 

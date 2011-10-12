@@ -46,13 +46,6 @@ import scala.xml._
 trait RestUtils {
 
   /**
-   * Helper method to create Json content
-   */
-  def JsonWrapper(name : String, content : JValue) : JValue = {
-    (name -> content)
-  }
-
-  /**
    * helper method to return a text in xml
    */
   def errorNode(text : String) : Elem = {
