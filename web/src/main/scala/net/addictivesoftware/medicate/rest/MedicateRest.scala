@@ -4,13 +4,14 @@ import net.liftweb.http._
 import net.liftweb.http.rest._
 import net.liftweb.http.auth._
 import net.addictivesoftware.medicate.model._
+import net.addictivesoftware.medicate.lib.CollectionUtils
 import net.liftweb.common._
 import net.liftweb.mapper._
 import net.liftweb.util.Helpers.AsLong
 import net.liftweb.json._
 import net.liftweb.json.JsonDSL._
 
-object MedicateRest extends RestHelper with RestUtils {
+object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
   serve {
     case "api" :: "version" :: _ XmlGet _=> {<version>0.1.0</version> }
     case "api" :: "version" :: _ JsonGet _=> { JsonWrapper("version", "0.1.0") }
@@ -161,9 +162,5 @@ object MedicateRest extends RestHelper with RestUtils {
       mergeMap(List(stockMap, dosageMap.map(kv => (kv._1,kv._2)).toMap))((stock, dailyIntake) => stock / dailyIntake)
   }
 
-  def mergeMap[A, B](ms: List[Map[A, B]])(f: (B, B) => B): Map[A, B] =
-  (Map[A, B]() /: (for (m <- ms; kv <- m) yield kv)) { (a, kv) =>
-    a + (if (a.contains(kv._1)) kv._1 -> f(a(kv._1), kv._2) else kv)
-  }
 
 }
