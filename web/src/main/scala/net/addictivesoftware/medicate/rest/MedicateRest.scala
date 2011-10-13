@@ -150,7 +150,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
       val supplies:Map[String, Long] = calculateSupplies(id)
 
       ("Supplies" -> {
-        supplies.map(kv => {
+        supplies.toList.map(kv => {
           ("Supply" ->
             ("Medicine" -> kv._1) ~
             ("DaysLeft" -> kv._2)
