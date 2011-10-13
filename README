@@ -1,6 +1,7 @@
 manage your medication, amounts, schedules, alerts
 
-This project is maven based, to run it: 
+This project is maven based, to run it:
+ - install scala 2.9.1
  - clone this repository
  - cd to the web/ directory
  - run mvn jetty:run
