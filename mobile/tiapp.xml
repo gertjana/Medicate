@@ -13,7 +13,7 @@
     <publisher>gertjan</publisher>
     <url>http://medicate.addictivesoftware.net</url>
     <description>not specified</description>
-    <copyright>2011 by gertjan</copyright>
+    <copyright>2011 Addictive Software</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
@@ -28,8 +28,6 @@
             <orientation>Ti.UI.PORTRAIT</orientation>
         </orientations>
         <orientations device="ipad">
-            <orientation>Ti.UI.PORTRAIT</orientation>
-            <orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
             <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
             <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
         </orientations>
