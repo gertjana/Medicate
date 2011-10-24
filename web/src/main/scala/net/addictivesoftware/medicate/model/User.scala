@@ -34,7 +34,7 @@ object User extends User with MetaMegaProtoUser[User] {
   // comment this line out to require email validations
   override def skipEmailValidation = true
 
-  override def createUserMenuLoc = Empty
+  //override def createUserMenuLoc = Empty
 }
 
 /**

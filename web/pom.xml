@@ -39,6 +39,11 @@
       <url>http://scala-tools.org/repo-snapshots</url>
       <snapshots/>
     </repository>
+    <repository>
+        <id>springsource-milestones</id>
+        <name>SpringSource Milestones Proxy</name>
+        <url>https://oss.sonatype.org/content/repositories/springsource-milestones</url>
+    </repository>
   </repositories>
 
   <pluginRepositories>
@@ -97,6 +102,14 @@
       <version>${scala.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- CloudFoundry -->
+    <dependency>
+      <groupId>org.cloudfoundry</groupId>
+      <artifactId>cloudfoundry-runtime</artifactId>
+      <version>0.6.1</version>
+    </dependency>
+
   </dependencies>
 
   <build>
