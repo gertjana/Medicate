@@ -64,31 +64,71 @@
             <th style="width:50px;">Method</th>
             <th>Description</th>
         </tr>
-         <tr class="odd">
+        <tr class="odd">
             <td><a href="/api/auth/{email}/{password}">/api/auth/{email}/{password}</a> </td>
             <td>GET</td>
             <td>Authentication, returns key to use in subsequent calls.</td>
         </tr>
-         <tr>
-             <td>/api/{key}/profile</td>
-             <td>GET</td>
-              <td>return's user profile <span class="red">* not yet implemented</span></td>
-          </tr>
-         <tr>
-             <td><a href="/api/{key}/stock">/api/{key}/stock</a> </td>
-             <td>GET</td>
-              <td>Stock, what medication does the user have in stock.</td>
-          </tr>
-         <tr class="odd">
-             <td><a href="/api/{key}/dosages">/api/{key}/dosages</a> </td>
-             <td>GET</td>
-             <td>Dosages, how much does the user take each period.</td>
-          </tr>
-         <tr>
-             <td><a href="/api/{key}/supplies">/api/{key}/supplies</a> </td>
-             <td>GET</td>
-             <td>Supplies, how long will his stock last, giving the current dosages.</td>
-          </tr>
-      </table>
+        <tr>
+            <td>/api/{key}/profile</td>
+            <td>GET</td>
+            <td>return's user profile <span class="red">* not yet implemented</span></td>
+        </tr>
+        <tr class="odd">
+            <td><a href="/api/{key}/stock">/api/{key}/stock</a> </td>
+            <td>GET</td>
+            <td>Stock, what medication does the user have in stock.</td>
+        </tr>
+        <tr>
+            <td><a href="/api/{key}/dosages">/api/{key}/dosages</a> </td>
+            <td>GET</td>
+            <td>Dosages, how much does the user take each period.</td>
+        </tr>
+        <tr class="odd">
+            <td><a href="/api/{key}/supplies">/api/{key}/supplies</a> </td>
+            <td>GET</td>
+            <td>Supplies, how long will his stock last, giving the current dosages.</td>
+        </tr>
+        <tr>
+            <td>/api/{key}/takedose</td>
+            <td>POST</td>
+            <td colspan="2">take a dose, reducing stock <span class="red">* not yet implemented</span>
+                <table>
+                    <tr>
+                        <th>Param</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr class="odd">
+                        <td>date</td>
+                        <td>defaults to today</td>
+                    </tr>
+                    <tr>
+                        <td>schedule</td>
+                        <td>One of Wakeup, Breakfast, Lunch, Dinner, BeforeSleep</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="odd">
+            <td>/api/{key}/stock/add</td>
+            <td>POST</td>
+            <td>add stock <span class="red">* not yet implemented</span>
+                <table>
+                     <tr>
+                         <th>Param</th>
+                         <th>Description</th>
+                     </tr>
+                    <tr class="odd">
+                         <td>medicineId</td>
+                         <td>the id of the medicine</td>
+                     </tr>
+                     <tr>
+                         <td>amount</td>
+                         <td>the amount of stock to add, note that a negative amount will reduce stock</td>
+                     </tr>
+                  </table>
+             </td>
+        </tr>
+     </table>
 </div>
 
