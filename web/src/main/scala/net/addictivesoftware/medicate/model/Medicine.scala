@@ -44,7 +44,7 @@ object Medicine extends Medicine with LongKeyedMetaMapper[Medicine] with CRUDify
   def asJson (medicine : Medicine) : JValue = {
     ("medicine" ->
       ("id" -> medicine.id.is) ~
-      ("name" -> medicine.amount.is) ~
+      ("name" -> medicine.name.is) ~
       ("description" -> medicine.description.is) ~
       ("amount" -> medicine.amount.is)
     )

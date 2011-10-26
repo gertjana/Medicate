@@ -55,13 +55,13 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
     case Nil XmlGet _=> {
         <Medicines>
           {
-            Medicine.findAll.map(medicine => medicine.asXml)
+            Medicine.findAll(OrderBy(Medicine.name, Ascending)).map(medicine => medicine.asXml)
           }
         </Medicines>
       }
 
     case Nil JsonGet _=> {
-        ("medicines", Medicine.findAll.map(medicine => medicine.asJson)):JValue
+        ("medicines", Medicine.findAll(OrderBy(Medicine.name, Ascending)).map(medicine => medicine.asJson)):JValue
        }
   })
 
@@ -150,7 +150,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
       val supplies:Map[String, Long] = calculateSupplies(id)
 
       ("Supplies" -> {
-        supplies.toList.map(kv => {
+        supplies.toList.sortBy(_._1).map(kv => {
           ("Supply" ->
             ("Medicine" -> kv._1) ~
             ("DaysLeft" -> kv._2)
