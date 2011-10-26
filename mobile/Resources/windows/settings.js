@@ -17,12 +17,14 @@ limitations under the License.
 Ti.include("constants.js");
 
 var win = Titanium.UI.currentWindow;
-//win.backgroundImage = '../images/gradientBackground.png';
+win.backgroundImage = '../images/gradientBackground.png';
 
 var url = Titanium.App.Properties.getString('url');
 var username = Titanium.App.Properties.getString('username');
 var password = Titanium.App.Properties.getString('password');
-var apikey = Titanium.App.Properties.getString('apikey');
+var apikey = Titanium.App.Properties.getString('key');
+//var redBoundary = Ti.App.Properties.getString('red');
+//var yellowBoundary = Ti.App.Properties.getString('yellow');
 
 win.add(Ti.UI.createLabel({
     color:settings.color1,
@@ -123,6 +125,63 @@ var button = Titanium.UI.createButton({
    title:"Retrieve api key"
 });
 win.add(button);
+/*
+var redLabel = Ti.UI.createLabel({
+    color:settings.color1,
+    font:{fontSize:12, fontFamily:'Arial'},
+    left:10,
+    top:285,
+    height:20,
+    width:250,
+    text:'red boundary' + redBoundary
+});
+win.add(redLabel);
+
+var redSlider = Ti.UI.createSlider({
+	min:0,
+	max:200,
+	value:redBoundary,
+	height:35,
+	top:305,
+	left:10,
+	width:250	
+});
+win.add(redSlider);
+
+redSlider.addEventListener('change', function(e) {
+	Ti.App.Properties.setString('red', e.value);
+	redLabel.text = 'red boundary ' + redBoundary;
+	win.add(redLabel);
+})
+
+var yellowLabel = Ti.UI.createLabel({
+    color:settings.color1,
+    font:{fontSize:12, fontFamily:'Arial'},
+    left:10,
+    top:345,
+    height:20,
+    width:250,
+    text:'yellow boundary ' + yellowBoundary
+});
+win.add(yellowLabel);
+
+var yellowSlider = Ti.UI.createSlider({
+	min:0,
+	max:200,
+	value:yellowBoundary,
+	height:35,
+	top:365,
+	left:10,
+	width:250	
+});
+
+win.add(yellowSlider);
+
+yellowSlider.addEventListener('change', function(e) {
+	Ti.App.Properties.setString('yellow', e.value);
+	yellowLabel.text = 'yellow boundary ' + yellowBoundary
+})
+*/
 
 var xhr = Titanium.Network.createHTTPClient();
 

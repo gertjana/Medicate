@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 var settings = {
-    color1: '#040442',
-    color2: '#040422'
+    color1: '#000',
+    color2: '#444462'
 };
 
 var APIKEY = "";
@@ -24,6 +24,7 @@ var BASE_URI = "";
 var STOCK_URI = "";
 var DOSAGES_URI = "";
 var SUPPLIES_URI = "";
+var MEDICATION_URI = "";
 
 function loadPropertiesAndUris() {
     APIKEY = Ti.App.Properties.getString("key");
@@ -31,6 +32,7 @@ function loadPropertiesAndUris() {
     DOSAGES_URI =   BASE_URI + "api/user/" + APIKEY + "/dosages";
     STOCK_URI = BASE_URI + "api/user/" +  APIKEY + "/stock";
     SUPPLIES_URI = BASE_URI + "api/user/" + APIKEY + "/supplies";
+    MEDICATION_URI = BASE_URI + "api/medicine"
 }
 
 loadPropertiesAndUris();

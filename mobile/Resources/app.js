@@ -16,7 +16,6 @@ limitations under the License.
 
 Ti.include("windows/constants.js");
 
-Titanium.UI.setBackgroundColor('#fff');
 Titanium.API.info("starting application");
 
 var winHome = Titanium.UI.createWindow({
@@ -69,16 +68,30 @@ var tabSettings = Titanium.UI.createTab({
     title:'Settings',
     window:winSettings
 });
+
+var winMedication = Titanium.UI.createWindow({
+    url:'windows/medication.js',
+    title:'Medication',
+    barColor: settings.color1,
+    color1: settings.color1,
+    color2: settings.color2
+});
+var tabMedication = Titanium.UI.createTab({
+    icon:'images/medication.png',
+    title:'Medication',
+    window:winMedication
+});
+
 var tabGroup = Titanium.UI.createTabGroup();
 
 tabGroup.addTab(tabHome);
+tabGroup.addTab(tabMedication);
 tabGroup.addTab(tabStock);
 tabGroup.addTab(tabDosages);
 tabGroup.addTab(tabSettings);
 
-//tabGroup.open();
 tabGroup.open({
-	transition:3 //Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+	transition:Titanium.UI.iPhone.AnimationStyle.CURL_UP
 });
 
 

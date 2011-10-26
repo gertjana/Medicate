@@ -28,24 +28,24 @@ var xhr = Titanium.Network.createHTTPClient();
 
 xhr.onload = function()
 {
-    var stocks = JSON.parse(this.responseText).stocks;    
-    Ti.API.info(stocks.length);
+    var medicines = JSON.parse(this.responseText).medicines;    
+    
     data = [];
 	section = Ti.UI.createTableViewSection();
     
-    for (var i=0;i<stocks.length;i++) {
-        var stock = stocks[i].stock;       
-        var name = stock.medicine;
-        var amount = stock.amount;
-        var id = stock.id;
-                
-        Ti.API.info(name);        
+    for (var i=0;i<medicines.length;i++) {
+        var medicine = medicines[i].medicine;       
+        var name = medicine.name;
+        var amount = medicine.amount;
+        var id = medicine.id;
                 
         var row = Ti.UI.createTableViewRow();
         
         row.height = 60;
         row.className = 'datarow';
         row.backgroundColor = '#FFF';
+        row.hasChild = true;
+        row.detailView = 'medicine.js';
         
         row.id = id;
                
@@ -76,7 +76,7 @@ xhr.onload = function()
 			top:36,
 			height:20,
 			width:200,
-			text:amount + " pills in stock"
+			text:amount + " mg"
 		});
 	    row.add(amountLabel);
 	    
@@ -87,6 +87,20 @@ xhr.onload = function()
     tableView.setData(data, {});
 
 };
+
+
+Titanium.UI.currentWindow.addEventListener('focus', function (e) {
+        reloadPropertiesAndUris();
+
+        Ti.API.info(MEDICATION_URI);
+
+        xhr.open('GET',MEDICATION_URI);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send();
+    
+});
+
+
 tableView = Titanium.UI.createTableView({
 	data:data,
 	filterAttribute:'filter',
@@ -96,26 +110,20 @@ tableView = Titanium.UI.createTableView({
 
 });
 
-Titanium.UI.currentWindow.add(tableView);
-
-Titanium.UI.currentWindow.addEventListener('focus', function (e) {
-        reloadPropertiesAndUris();
-
-        Ti.API.info(STOCK_URI);
-
-        xhr.open('GET',STOCK_URI);
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.send();
-    
-});
-
-
-var addStock = Titanium.UI.createButton({
-	title:'Add Stock'
-});
-addStock.addEventListener('click', function()
+tableView.addEventListener('click', function(e)
 {
-	Titanium.UI.createAlertDialog({title:'System Button', message:'Add Stock'}).show();
+	if (e.rowData.detailView)
+	{
+		var newwin = Titanium.UI.createWindow({
+			url:e.rowData.detailView,
+			title:e.rowData.author,
+			barColor: settings.color1,
+            medicine:e.rowData.id
+		});
+		Ti.API.info(e.rowData.detailView);
+        newwin.author = e.rowData.author;
+		Titanium.UI.currentTab.open(newwin,{animated:true});
+	}
 });
-win.rightNavButton = addStock;
 
+Titanium.UI.currentWindow.add(tableView);
