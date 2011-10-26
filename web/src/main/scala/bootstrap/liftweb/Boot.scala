@@ -35,18 +35,32 @@ import _root_.net.addictivesoftware.medicate.rest._
  */
 class Boot {
   def boot {
+    //determine which db to use in the following order
+    // 1. JNDI
+    // 2. Cloudfoundry
+    // 3. username.hostname.props file on the classpath
+    // 4. default.props on the classpath
+    // 5. H2 in memory database
     if (!DB.jndiJdbcConnAvailable_?) {
-/*      val vendor =
-	    new StandardDBVendor(
-        Props.get("db.class").openOr("Invalid DB class"), // openOr "org.h2.Driver",
-			  Props.get("db.url").openOr("Invalid DB url"), // openOr "jdbc:h2:lift_proto.db;AUTO_SERVER=TRUE",
-			  Props.get("db.user"),
-        Props.get("db.password")
-      )
 
-      LiftRules.unloadHooks.append(vendor.closeAllConnections_! _)
-*/
-      DB.defineConnectionManager(DefaultConnectionIdentifier, DBVendor)
+      val connection = CloudFoundryConnection
+      connection.newConnection(DefaultConnectionIdentifier) match {
+
+        case Empty => {
+          val vendor = new StandardDBVendor(
+            Props.get("db.class") openOr "org.h2.Driver",
+            Props.get("db.url") openOr "jdbc:h2:lift_proto.db;AUTO_SERVER=TRUE",
+            Props.get("db.user"),
+            Props.get("db.password")
+          )
+          LiftRules.unloadHooks.append(vendor.closeAllConnections_! _)
+          DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
+        }
+
+        case (_) => {
+          DB.defineConnectionManager(DefaultConnectionIdentifier, connection)
+        }
+      }
     }
 
     // where to search snippet
@@ -54,7 +68,7 @@ class Boot {
     Schemifier.schemify(true, Schemifier.infoF _, User, Medicine, Dose, Stock)
 
     val home = Loc("HomePage", "index" :: Nil, "Home Page", Hidden)
-    val restapi = Loc("RestApiPage", "restapi" :: Nil, "RestApi Page")
+    val restapi = Loc("RestApiPage", "restapi" :: Nil, "Rest Api")
     val crudMenu = Medicine.menus ::: Dose.menus ::: Stock.menus
     val allMenus = Menu(home) :: Menu(restapi) :: User.sitemap
     val mySiteMap = SiteMap((allMenus ::: crudMenu): _*)
@@ -98,20 +112,16 @@ class Boot {
     req.setCharacterEncoding("UTF-8")
   }
 
-  object DBVendor extends ConnectionManager {
+  object CloudFoundryConnection extends ConnectionManager {
     def newConnection(name: ConnectionIdentifier): Box[Connection] = {
       try {
-        /** Uncomment if you really want Derby
-         *
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver")
-        val dm = DriverManager.getConnection("jdbc:derby:pca_example;create=true")
-        */
         import org.cloudfoundry.runtime.env._
         import org.cloudfoundry.runtime.service.relational._
-        Full(new MysqlServiceCreator(new CloudEnvironment()).createSingletonService().service.getConnection())
+        Full(new MysqlServiceCreator(new CloudEnvironment())
+                        .createSingletonService().service.getConnection())
 
       } catch {
-        case e : Exception => e.printStackTrace; Empty
+        case e : Exception => Empty
       }
     }
     def releaseConnection(conn: Connection) {conn.close}
