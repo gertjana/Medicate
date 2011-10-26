@@ -3,55 +3,5 @@
   <p>
       This is the server side of the medicate application, it's purpose is to centrally store all medication, and stocks, dosages for each user.
   </p>
-  <p>the REST API available in both json and xml (depending on Accept: Header or .json/.xml suffix)</p>
-    <h5>General info</h5>
-    <table>
-        <tr>
-            <th style="width:150px;">URL</th>
-            <th>Description</th>
-        </tr>
-        <tr class="odd">
-            <td><a href="/api/version">/api/version</a> </td>
-            <td>API version</td>
-        </tr>
-    </table>
-    <h5>Medication</h5>
-    <table>
-        <tr class="odd">
-            <th style="width:150px;">URL</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td><a href="/api/medication">/api/medication</a> </td>
-            <td>All medication</td>
-        </tr>
-        <tr class="odd">
-            <td><a href="/api/medication/{id}">/api/medication/{id}</a> </td>
-            <td>A single medication by Id</td>
-        </tr>
-    </table>
-    <h5>User specific</h5>
-     <table>
-        <tr>
-            <th style="width:150px;">URL</th>
-            <th>Description</th>
-        </tr>
-         <tr class="odd">
-            <td><a href="/api/auth/{email}/{password}">/api/auth/{email}/{password}</a> </td>
-            <td>Authentication, returns key to use in subsequent calls.</td>
-        </tr>
-         <tr>
-             <td><a href="/api/{key}/stock">/api/{key}/stock</a> </td>
-              <td>Stock, what medication does the user have in stock.</td>
-          </tr>
-         <tr class="odd">
-             <td><a href="/api/{key}/dosages">/api/{key}/dosages</a> </td>
-              <td>Dosages, how much does the user take each period.</td>
-          </tr>
-         <tr>
-             <td><a href="/api/{key}/supplies">/api/{key}/supplies</a> </td>
-              <td>Supplies, how long will his stock last, giving the current dosages.</td>
-          </tr>
-      </table>
 </div>
 
