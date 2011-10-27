@@ -5,4 +5,4 @@ target/
 *.db
 *.swp
 build/
-project/boot/
+/web/project/boot/*
