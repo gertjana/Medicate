@@ -6,3 +6,5 @@ target/
 *.swp
 build/
 /web/project/boot/*
+
+web/.DS_Store
