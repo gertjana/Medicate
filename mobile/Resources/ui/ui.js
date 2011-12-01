@@ -25,19 +25,21 @@ limitations under the License.
 				top:0,
 				left:0,
 				bottom:0,
-				width:$$.platformWidth*_args.views.length
+				width:$$.platformWidth*(views.length+1)
 			});
 
 		for (var i = 0, l = views.length; i<l; i++) {
 			var newView = Ti.UI.createView({
 				top:0,
 				bottom:0,
-				left:$$.platformWidth*i,
+				left:$$.platformWidth*(i+1),
 				width:$$.platformWidth
 			});
 			newView.add(views[i]);
 			container.add(newView);
 		}
+		
+		alert(container.width);
 		root.add(container);
 
 		//set the currently visible index
@@ -47,6 +49,8 @@ limitations under the License.
 				duration:$$.animationDuration,
 				left:leftValue
 			});
+
+			
 		});
 
 		return root;
@@ -56,6 +60,6 @@ limitations under the License.
 
 Ti.include(
 	'/ui/ApplicationWindow.js',
-	'/ui/utils.js'
+	'/ui/utils.js',
+	'/ui/SupplyView.js'
 );
-

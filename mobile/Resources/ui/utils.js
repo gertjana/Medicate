@@ -20,7 +20,7 @@ limitations under the License.
 	medicate.ui.theme = {
 		textColor:'#000000',
 		grayTextColor:'#888888',
-		headerColor:'#333333',
+		headerColor:'#CCCCCC',
 		lightBlue:'#006cb1',
 		darkBlue:'#93caed',
 		fontFamily: medicate.os({
@@ -127,7 +127,8 @@ limitations under the License.
 			}
 		},
 		headerView: {
-			backgroundImage:'images/header_bg.png',
+			backgroundColor: '#369',
+			//backgroundImage:'images/header_bg.png',
 			height:40
 		},
 		boldHeaderText: {
