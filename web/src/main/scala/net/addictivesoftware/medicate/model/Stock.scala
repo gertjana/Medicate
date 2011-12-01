@@ -25,35 +25,35 @@ import _root_.net.liftweb.json._
 import _root_.net.liftweb.json.JsonDSL._
 import _root_.scala.xml.Node
 
-class Medicine extends LongKeyedMapper[Medicine] with IdPK {
-  def getSingleton = Medicine // what's the "meta" server
+class Stock extends LongKeyedMapper[Stock] with IdPK {
+  def getSingleton = Stock // what's the "meta" server
 
-  object name extends MappedString(this, 140)
-  object description extends MappedTextarea(this, 4000)
-  object amount extends MappedInt(this)
-
-  def asJson : JValue = Medicine.asJson(this)
-  def asXml : Node  = Medicine.asXml(this)
-
-  override def toString : String = name.is + " (" + amount.is + "mg)"
-}
-
-
-object Medicine extends Medicine with LongKeyedMetaMapper[Medicine] with CRUDify[Long, Medicine] {
-
-  def asJson (medicine : Medicine) : JValue = {
-    ("medicine" ->
-      ("id" -> medicine.id.is) ~
-      ("name" -> medicine.name.is) ~
-      ("description" -> medicine.description.is) ~
-      ("amount" -> medicine.amount.is)
-    )
+  object user extends MappedLongForeignKey(this, User) {
+    override def validSelectValues = { Full(for (user <- User.findAll) yield (user.id.is, user.fullName)) }
   }
 
-  def asXml (medicine : Medicine) : Node = Xml.toXml(asJson(medicine)).head
+  object medicine extends MappedLongForeignKey(this, Medicine) {
+    override def validSelectValues = { Full(for (medicine <- Medicine.findAll) yield (medicine.id.is, medicine.name.is)) }
+  }
 
+  object amount extends MappedLong(this)
 
+  def asJson : JValue = Stock.asJson(this)
+  def asXml : Node  = Stock.asXml(this)
 
+}
+
+object Stock extends Stock with LongKeyedMetaMapper[Stock] with CRUDify[Long, Stock] {
+
+  def asJson (stock : Stock) : JValue = {
+     ("stock" ->
+       ("id" -> stock.id.is) ~
+       ("medicine" -> stock.medicine.obj.map(medicine => medicine.toString).openOr("")) ~
+       ("amount" -> stock.amount.is)
+     )
+   }
+
+  def asXml (stock : Stock) : Node = Xml.toXml(asJson(stock)).head
 
   override def editMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/")) :: super.editMenuLocParams
   override def viewMenuLocParams = If(User.loggedIn_? _, RedirectResponse("/")) :: super.viewMenuLocParams

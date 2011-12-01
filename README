@@ -1,1 +1,13 @@
 manage your medication, amounts, schedules, alerts
+
+The web project is maven based, to run it:
+ - install scala 2.9.1
+ - clone this repository
+ - cd to the web/ directory
+ - run mvn jetty:run
+
+The mobile project is built with titanium appcelerator
+ - install titanium studio
+ - open the project in the mobile/ directory
+ - run the emulator's from within titanium studio
+

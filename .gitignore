@@ -5,4 +5,6 @@ target/
 *.log
 *.db
 *.swp
-
+build/
+/web/project/boot/*
+web/.DS_Store
