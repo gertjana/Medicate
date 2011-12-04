@@ -44,6 +44,11 @@
         <name>SpringSource Milestones Proxy</name>
         <url>https://oss.sonatype.org/content/repositories/springsource-milestones</url>
     </repository>
+    <repository>
+       <id>ObjectWeb</id>
+       <name>ObjectWeb repository</name>
+       <url>http://maven.ow2.org/maven2</url>
+     </repository>
   </repositories>
 
   <pluginRepositories>
@@ -81,6 +86,19 @@
       <artifactId>servlet-api</artifactId>
       <version>2.5</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.specs2</groupId>
+        <artifactId>specs2_2.9.1</artifactId>
+        <version>1.6.1</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>org.specs2</groupId>
+        <artifactId>specs2-scalaz-core_2.9.1</artifactId>
+        <version>6.0.1</version>
+        <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
