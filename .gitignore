@@ -1,4 +1,5 @@
 target/
+.idea/
 *.ipr
 *.iws
 *.log
@@ -6,3 +7,4 @@ target/
 *.swp
 build/
 /web/project/boot/*
+web/.DS_Store
