@@ -28,13 +28,10 @@ import net.liftweb.json._
 import net.liftweb.json.JsonDSL._
 
 object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
-  serve {
-    case "api" :: "version" :: _ XmlGet _=> {<version>0.1.0</version> }
-    case "api" :: "version" :: _ JsonGet _=> { ("version", "0.1.0"):JValue }
-  }
+  def version = "1.0";
 
   // generic query-ing of medicine
-  serve( "api" / "medicine" prefix {
+  serve( "api" / version / "medicine" prefix {
     // single medicine
     case AsLong(id) :: _ XmlGet _=>
       {
@@ -67,7 +64,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
 
   // user authentication
   // FIXME now has password in the url in plain text
-  serve ("api" / "auth" prefix {
+  serve ("api" / version / "auth" prefix {
     case email :: password :: _ XmlGet _ => {
       User.find(By(User.email, email)) match {
         case Full(u) =>
@@ -98,7 +95,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
   })
 
   // user specific calls
-  serve ( "api" / "user" prefix {
+  serve ( "api" / version / "user" prefix {
     //return dosages
     case key :: "dosages" :: _ XmlGet _=> {
       var id = getUserIdFromKey(key)
