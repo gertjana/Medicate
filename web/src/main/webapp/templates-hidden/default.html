@@ -60,21 +60,21 @@
 	background-color: #eee;
 }
 
-table {
+table.api {
     border: 1px solid #444;
 }
 
-th {
+table.api th {
     background-color:#444;
     color:white;
     font-weight:bold;
 }
 
-tr {
+table.api tr {
     background-color:#EEE;
 }
 
-tr.odd {
+table.api tr.odd {
     background-color:#CCC;
 }
 .red {
@@ -83,6 +83,58 @@ tr.odd {
 }
 td {
     vertical-align:top;
+}
+
+a, a:hover, a:active, a:visited {
+  text-decoration:none;
+}
+
+a.button {
+  width:200px;
+  padding: .66em 0;
+  margin: .66em;
+  display: block;
+  -webkit-border-radius: .5em;
+  -moz-border-radius:    .5em;
+  border-radius:         .5em;
+  border: 1px solid #666;
+  color: #333;
+  background: white;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#69c));
+  background: -moz-linear-gradient(top, white, #69c);
+  text-align: center;
+  font-weight: bold;
+  font-size: 125%;
+  color: #369;
+}
+
+a.button:hover {
+  color: white;
+  background: #369;
+  background: -webkit-gradient(linear, left top, left bottom, from(#369), to(black));
+  background: -moz-linear-gradient(top, #369, black);
+}
+
+a.button b {
+	color:#69c;
+}
+
+p.centered {
+	width:100%;
+	font-size:1.5em;
+	font-weight:bold;
+	padding:.66em;
+}
+
+form {
+  -webkit-border-radius: .5em;
+  -moz-border-radius:    .5em;
+  border-radius:         .5em;
+  border: 1px solid #666;
+  color: #333;
+  background: white;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#69c));
+  background: -moz-linear-gradient(top, white, #69c);
 }
 
   /* ]]> */

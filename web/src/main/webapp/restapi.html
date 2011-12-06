@@ -1,7 +1,7 @@
 <div class="lift:surround?with=default;at=content">
     <h2>Rest API</h2>
     <p>we support json and xml, use the appropiate headers or suffices as shown here.</p>
-    <table>
+    <table class="api">
         <tr>
             <th>response</th>
             <th>request header</th>
@@ -20,7 +20,7 @@
     </table>
     <h5>Medication</h5>
     <p>directly query the medication database</p>
-    <table>
+    <table class="api">
         <tr class="odd">
             <th style="width:200px;">URL</th>
             <th style="width:50px;">Method</th>
@@ -37,6 +37,21 @@
             <td>A single medication by Id</td>
         </tr>
         <tr>
+            <td>/api/1.0/medicine</td>
+            <td>PUT</td>
+            <td>add new medication <span class="red">* not yet implemented</span></td>
+        </tr>
+        <tr class="odd">
+            <td>/api/1.0/medicine</td>
+            <td>POST</td>
+            <td>Update a medication <span class="red">* not yet implemented</span></td>
+        </tr>
+        <tr>
+            <td>/api/1.0/medicine/{id}</td>
+            <td>DELETE</td>
+            <td>Delete a medication <span class="red">* not yet implemented</span></td>
+        </tr>
+        <tr>
             <td>/api/1.0/medicine/search/{text} </td>
             <td>GET</td>
             <td>search the database <span class="red">* not yet implemented</span></td>
@@ -44,7 +59,7 @@
     </table>
     <h5>User specific</h5>
     <p>All user based information</p>
-     <table>
+     <table class="api">
         <tr>
             <th style="width:200px;">URL</th>
             <th style="width:50px;">Method</th>
@@ -79,7 +94,7 @@
             <td>/api/1.0/user/{key}/takedose</td>
             <td>POST</td>
             <td colspan="2">take a dose, reducing stock <span class="red">* not yet implemented</span>
-                <table>
+                <table class="api">
                     <tr>
                         <th>Param</th>
                         <th>Description</th>
@@ -99,7 +114,7 @@
             <td>/api/1.0/user/{key}/stock/add</td>
             <td>POST</td>
             <td>add stock <span class="red">* not yet implemented</span>
-                <table>
+                <table class="api">
                      <tr>
                          <th>Param</th>
                          <th>Description</th>
