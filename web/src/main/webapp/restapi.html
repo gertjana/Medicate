@@ -18,20 +18,6 @@
             <td>[url].json</td>
         </tr>
     </table>
-    <h5>General</h5>
-    <p>General information</p>
-    <table>
-        <tr>
-            <th style="width:200px;">URL</th>
-            <th style="width:50px;">Method</th>
-            <th>Description</th>
-        </tr>
-        <tr class="odd">
-            <td><a href="/api/version">/api/version</a> </td>
-            <td>GET</td>
-            <td>API version</td>
-        </tr>
-    </table>
     <h5>Medication</h5>
     <p>directly query the medication database</p>
     <table>
@@ -41,17 +27,17 @@
             <th>Description</th>
         </tr>
         <tr>
-            <td><a href="/api/medicine">/api/medicine</a> </td>
+            <td><a href="/api/1.0/medicine">/api/1.0/medicine</a> </td>
             <td>GET</td>
             <td>All medication</td>
         </tr>
         <tr class="odd">
-            <td><a href="/api/medicine/{id}">/api/medicine/{id}</a> </td>
+            <td><a href="/api/1.0/medicine/{id}">/api/1.0/medicine/{id}</a> </td>
             <td>GET</td>
             <td>A single medication by Id</td>
         </tr>
         <tr>
-            <td>/api/medicine/search/{text} </td>
+            <td>/api/1.0/medicine/search/{text} </td>
             <td>GET</td>
             <td>search the database <span class="red">* not yet implemented</span></td>
         </tr>
@@ -65,32 +51,32 @@
             <th>Description</th>
         </tr>
         <tr class="odd">
-            <td><a href="/api/auth/{email}/{password}">/api/auth/{email}/{password}</a> </td>
+            <td><a href="/api/1.0/auth/{email}/{password}">/api/1.0/auth/{email}/{password}</a> </td>
             <td>GET</td>
             <td>Authentication, returns key to use in subsequent calls.</td>
         </tr>
         <tr>
-            <td>/api/{key}/profile</td>
+            <td>/api/1.0/{key}/profile</td>
             <td>GET</td>
             <td>return's user profile <span class="red">* not yet implemented</span></td>
         </tr>
         <tr class="odd">
-            <td><a href="/api/{key}/stock">/api/{key}/stock</a> </td>
+            <td><a href="/api/1.0/user/{key}/stock">/api/1.0/{key}/stock</a> </td>
             <td>GET</td>
             <td>Stock, what medication does the user have in stock.</td>
         </tr>
         <tr>
-            <td><a href="/api/{key}/dosages">/api/{key}/dosages</a> </td>
+            <td><a href="/api/1.0/user/{key}/dosages">/api/1.0/user/{key}/dosages</a> </td>
             <td>GET</td>
             <td>Dosages, how much does the user take each period.</td>
         </tr>
         <tr class="odd">
-            <td><a href="/api/{key}/supplies">/api/{key}/supplies</a> </td>
+            <td><a href="/api/1.0/user/{key}/supplies">/api/1.0/user/{key}/supplies</a> </td>
             <td>GET</td>
             <td>Supplies, how long will his stock last, giving the current dosages.</td>
         </tr>
         <tr>
-            <td>/api/{key}/takedose</td>
+            <td>/api/1.0/user/{key}/takedose</td>
             <td>POST</td>
             <td colspan="2">take a dose, reducing stock <span class="red">* not yet implemented</span>
                 <table>
@@ -110,7 +96,7 @@
             </td>
         </tr>
         <tr class="odd">
-            <td>/api/{key}/stock/add</td>
+            <td>/api/1.0/user/{key}/stock/add</td>
             <td>POST</td>
             <td>add stock <span class="red">* not yet implemented</span>
                 <table>
