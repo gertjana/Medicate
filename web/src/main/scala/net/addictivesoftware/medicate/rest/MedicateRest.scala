@@ -27,6 +27,11 @@ import net.liftweb.util.Helpers.AsLong
 import net.liftweb.json._
 import net.liftweb.json.JsonDSL._
 
+/**
+ * Main REST interface
+ * 
+ * Extended with Liftweb's Resthelper and our own @see RestUtils and @see CollectionUtils
+ */
 object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
   def version = "1.0";
 
@@ -157,6 +162,11 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
     }
   })
 
+  /**
+   * Helper method that returns the nr of days the user will have medicines with his current intake as a map
+   * @param the id of the user
+   * @return A Map containing his medicines and the nr of days left for each of them 
+   */
   def calculateSupplies(user_id : Long) = {
       val dosages = Dose.findAll(By(Dose.user, user_id))
       val dosageMap = scala.collection.mutable.Map[String, Long]();

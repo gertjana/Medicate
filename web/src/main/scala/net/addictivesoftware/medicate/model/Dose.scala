@@ -25,6 +25,9 @@ import _root_.net.liftweb.json._
 import _root_.net.liftweb.json.JsonDSL._
 import _root_.scala.xml.Node
 
+/**
+ * A class representing a Dose of Medicine a user needs to take at a certain moment
+ */
 class Dose extends LongKeyedMapper[Dose] with IdPK {
   def getSingleton = Dose
 
@@ -62,6 +65,9 @@ object Dose extends Dose with LongKeyedMetaMapper[Dose] with CRUDify[Long, Dose]
   }
 }
 
+/**
+ * Enumeration of times in a day a @see Dose of @see Medicine can be taken
+ */
 object Schedule extends Enumeration {
     type Schedule = Value
     val Wakeup, Breakfast, Lunch, Dinner, BeforeSleep = Value

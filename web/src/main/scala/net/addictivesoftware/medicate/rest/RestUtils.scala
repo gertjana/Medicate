@@ -47,6 +47,8 @@ trait RestUtils {
 
   /**
    * helper method to return a text in xml
+   * @param text The text to put in the error element
+   * @return an Xml Element containing the error message
    */
   def errorNode(text : String) : Elem = {
     <error>{text}</error>
@@ -54,6 +56,8 @@ trait RestUtils {
 
   /**
    * Retrieves the id of the user, by looking at his uniqueId field
+   * @param key equal to uniqueId field of User
+   * @return the user id
    */
   def getUserIdFromKey(key:String) : Long = {
       User.find(By(User.uniqueId, key)) match {

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package net.addictivesoftware.medicate {
-package model {
+package net.addictivesoftware.medicate.model 
 
 import _root_.net.liftweb.mapper._
 import _root_.net.liftweb.util._
@@ -38,12 +37,10 @@ object User extends User with MetaMegaProtoUser[User] {
 }
 
 /**
- * An O-R mapped "User" class that includes first name, last name, password and we add a "Personal Essay" to it
+ * An O-R mapped "User" class that includes first name, last name, password
  */
 class User extends MegaProtoUser[User] {
   def getSingleton = User // what's the "meta" server
   def fullName = firstName + " " + lastName
 }
 
-}
-}

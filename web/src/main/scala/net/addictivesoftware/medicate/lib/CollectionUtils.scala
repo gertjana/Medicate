@@ -20,14 +20,23 @@ trait CollectionUtils {
 
   /**
    * merges 2 hashmaps based on their keys, while executing the provided function on the values
+   * 
+   * @param maps A List containing 2 Maps
+   * @param f A function to apply to values from each map with the same key
+   * @return the merged map
    */
-  def mergeMap[A, B](ms: List[Map[A, B]])(f: (B, B) => B): Map[A, B] =
-    (Map[A, B]() /: (for (m <- ms; kv <- m) yield kv)) { (a, kv) =>
+  def mergeMap[A, B](maps: List[Map[A, B]])(f: (B, B) => B): Map[A, B] =
+    (Map[A, B]() /: (for (map <- maps; kv <- map) yield kv)) { (a, kv) =>
       a + (if (a.contains(kv._1)) kv._1 -> f(a(kv._1), kv._2) else kv)
     }
 
-  def makeImmutable[A,B](m: scala.collection.mutable.Map[A,B]): Map[A, B] = {
-    m.map(kv => (kv._1,kv._2)).toMap
+  /**
+   * Creates an immutable Map from a mutable one
+   * @param map the mutable map
+   * @return an immutable map
+   */
+  def makeImmutable[A,B](map: scala.collection.mutable.Map[A,B]): Map[A, B] = {
+    map.map(kv => (kv._1,kv._2)).toMap
   }
 
 }

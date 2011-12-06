@@ -3,7 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  
+  <organization>
+    <name>Addictive Software</name>
+    <url>http://blog.addictivesoftware.net</url>
+  </organization>  
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.addictivesoftware.medicate</groupId>
   <artifactId>medicate</artifactId>
@@ -13,15 +16,34 @@
   <inceptionYear>2010</inceptionYear>
   <properties>
     <scala.version>2.9.1</scala.version>
-    <!-- Common plugin settings -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
-    <!-- vscaladoc settings -->
-    <maven.scaladoc.vscaladocVersion>1.2-m1</maven.scaladoc.vscaladocVersion>
-    <vscaladoc.links.liftweb.pathsufix>scaladocs/</vscaladoc.links.liftweb.pathsufix>
-    <vscaladoc.links.liftweb.baseurl>http://scala-tools.org/mvnsites-snapshots/liftweb</vscaladoc.links.liftweb.baseurl>
   </properties>
 
+  <licenses>
+	  <license>
+	    <name>Apache 2</name>
+	    <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+	    <distribution>repo</distribution>
+	    <comments>A business-friendly OSS license</comments>
+	  </license>
+  </licenses>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/gertjana/Medicate/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://major7.ci.cloudbees.com/</url>
+  </ciManagement>
+  <scm>
+  	<tag>HEAD</tag>
+  	<url>https://github.com/gertjana/Medicate</url>
+  	<connection>scm:git:git://github.com/gertjana/Medicate.git</connection>
+  	<developerConnection>scm:git:ssh://git@github.com:gertjana/Medicate.git</developerConnection>
+  </scm>
+  
   <repositories>
     <repository>
       <id>scala-tools.releases</id>
@@ -194,21 +216,6 @@
         <configuration>
           <contextPath>/</contextPath>
           <scanIntervalSeconds>5</scanIntervalSeconds>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>net.sf.alchim</groupId>
-        <artifactId>yuicompressor-maven-plugin</artifactId>
-        <version>0.7.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compress</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <nosuffix>true</nosuffix>
         </configuration>
       </plugin>
       <plugin>

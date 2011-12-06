@@ -25,6 +25,9 @@ import _root_.net.liftweb.json._
 import _root_.net.liftweb.json.JsonDSL._
 import _root_.scala.xml.Node
 
+/**
+ * class representing the amount of Medicine a user has in stock
+ */
 class Stock extends LongKeyedMapper[Stock] with IdPK {
   def getSingleton = Stock // what's the "meta" server
 
