@@ -20,7 +20,7 @@
         <option name="compilerLibraryLevel" value="Project" />
         <option name="compilerLibraryName" value="Maven: org.scala-lang:scala-compiler-bundle:2.9.1" />
         <option name="maximumHeapSize" value="1024" />
-        <option name="vmOptions" value="-DpackageLinkDefs=file://C:\Users\gertjan\Projects\Medicate\web\target/packageLinkDefs.properties" />
+        <option name="vmOptions" value="-DpackageLinkDefs=file:///Users/gertjan/NetBeansProjects/Medicate/web/target/packageLinkDefs.properties" />
       </configuration>
     </facet>
   </component>
@@ -36,6 +36,17 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-mapper_2.9.1:2.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.derby:derby:10.7.1.1" level="project" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-db_2.9.1:2.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-util_2.9.1:2.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-actor_2.9.1:2.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-common_2.9.1:2.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-json_2.9.1:2.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-proto_2.9.1:2.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-webkit_2.9.1:2.4-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.specs2:specs2_2.9.1:1.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.specs2:specs2-scalaz-core_2.9.1:6.0.1" level="project" />
     <orderEntry type="library" name="Maven: net.liftweb:lift-mapper_2.9.1:2.4-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.h2database:h2:1.2.138" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.derby:derby:10.7.1.1" level="project" />

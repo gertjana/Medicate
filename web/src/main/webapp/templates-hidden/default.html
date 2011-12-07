@@ -5,8 +5,6 @@
     <meta name="keywords" content="" />
     
 		<title>Medicate</title>
-    <style class="lift:CSS.blueprint" />
-    <style class="lift:CSS.fancyType" />
     <script id="jquery" src="/classpath/jquery.js" type="text/javascript"/>
     <script id="json" src="/classpath/json.js" type="text/javascript"/>
     <style type="text/css">
@@ -97,7 +95,7 @@ a.button {
   -webkit-border-radius: .5em;
   -moz-border-radius:    .5em;
   border-radius:         .5em;
-  border: 1px solid #666;
+
   color: #333;
   background: white;
   background: -webkit-gradient(linear, left top, left bottom, from(white), to(#69c));
@@ -121,8 +119,7 @@ a.button b {
 
 p.centered {
 	width:100%;
-	font-size:1.5em;
-	font-weight:bold;
+	font-size:1.2em;
 	padding:.66em;
 }
 
@@ -130,11 +127,52 @@ form {
   -webkit-border-radius: .5em;
   -moz-border-radius:    .5em;
   border-radius:         .5em;
-  border: 1px solid #666;
   color: #333;
   background: white;
   background: -webkit-gradient(linear, left top, left bottom, from(white), to(#69c));
   background: -moz-linear-gradient(top, white, #69c);
+}
+
+div.header {
+    width:80%;
+    padding:10px;
+    color:#369;
+    text-align: left;
+    background: white;
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(#69c));
+    background: -moz-linear-gradient(top, white, #69c);
+      -webkit-border-radius: .5em;
+  -moz-border-radius:    .5em;
+  border-radius:         .5em;
+    margin:20px;
+}
+div.footer {
+    width:80%;
+    padding:10px;
+    color:#369;
+    text-align: left;
+    background: white;
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(#69c));
+    background: -moz-linear-gradient(top, white, #69c);
+      -webkit-border-radius: .5em;
+  -moz-border-radius:    .5em;
+  border-radius:         .5em;
+    margin:20px;
+}
+div.header a, div.header a:hover, div.header a:visited {
+    color:#444;
+    font-weight:normal;
+    font-size:1em;
+}
+
+div.content {
+    padding:20px;
+}
+
+body {
+    margin:0;
+    padding:0;
+    font-family: "Tahoma";
 }
 
   /* ]]> */
@@ -142,34 +180,19 @@ form {
   </head>
   <body>
     <div class="container">
-      <div class="column span-12 last" style="text-align: left">
-        <h1 class="alt">Medicate<img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/images/ajax-loader.gif"/></h1>
+      <div class="header">
+        <h1 class="alt"><img src="images/medication.png"/><a href="/">Medicate</a><img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/images/ajax-loader.gif"/></h1>
       </div>
 
-      <hr/>
-
-      <div class="column span-6 colborder sidebar">
-        <hr class="space" />
-        <span class="lift:Menu.builder" />	
-        <div>
-          <span class="lift:Msgs?showAll=true"/>
-          <hr class="space" />
+        <div class="content">
+            <div id="content">
+                <!-- The HTML content will go here -->
+            </div>
         </div>
-      </div>
 
-      <div class="column span-17 last">
-        <div id="content" >
-	  <!-- The HTML content will go here -->
-	</div>
+       <div class="footer">
+           &copy; Addictive Software 2011 - released under the Apache 2.0 license
       </div>
-
-      <hr />
-      <div class="column span-23 last" style="text-align: center">
-        <h4 class="alt">
-          <a href="http://www.liftweb.net"><i>Lift</i></a> 
-	        is Copyright 2007-2010 WorldWide Conferencing, LLC.  Distributed under an Apache 2.0 License.</h4>
-      </div>
-      
     </div>
   </body>
 </html>
