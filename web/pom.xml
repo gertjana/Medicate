@@ -227,6 +227,13 @@
         </configuration>
       </plugin>
       <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-site-plugin</artifactId>
+      	<configuration>
+      		<outputDirectory>${project.basedir}/../site</outputDirectory>
+      	</configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
         <version>2.7</version>
