@@ -10,10 +10,14 @@ import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class ModelTest extends SpecificationWithJUnit  {
+
+  // initialise an in memory h2 database
   InMemoryDB.init;
 
+  // create some medicines
   val methformine = Medicine.create.name("Methformine").amount(500).saveMe;
   val glimepiride = Medicine.create.name("Glimepiride").amount(2).saveMe;
+  val omezopranol = Medicine.create.name("Omezopranol").amount(20).saveMe;
 
   //Create a user
   val user = User.create.firstName("Theo").lastName("Tester").email("theo@tester.com").password("test").saveMe;
@@ -26,8 +30,8 @@ class ModelTest extends SpecificationWithJUnit  {
   Stock.create.user(user).medicine(glimepiride).amount(90).save;
 
   "The Database" should {
-    "contain 2 medicines" in {
-      Medicine.findAll() must have size(2)
+    "contain 3 medicines" in {
+      Medicine.findAll() must have size(3)
     }
   }
 
@@ -49,6 +53,7 @@ class ModelTest extends SpecificationWithJUnit  {
       medicines.head.toString() must be equalTo("Methformine (500mg)")
     }
   }
+  
   "The toString() of Glimepiride" should {
     "read Glimepiride (2mg)" in {
       val medicines : List[Medicine] =  Medicine.findAll(By(Medicine.name, "Glimepiride"));
@@ -64,6 +69,7 @@ class ModelTest extends SpecificationWithJUnit  {
 
     }
   }
+  
   "First supply" should {
     "contain 45 days of Methformine" in {
       val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
@@ -71,6 +77,7 @@ class ModelTest extends SpecificationWithJUnit  {
       supplies.head._2 must be equalTo(45)
     }
   }
+  
   "second supply" should {
     "contain 90 days of Glimepiride" in {
       val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
