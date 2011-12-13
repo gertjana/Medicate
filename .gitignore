@@ -8,3 +8,7 @@ target/
 build/
 /web/project/boot/*
 .DS_Store
+.project
+.classpath
+.settings/
+site/
