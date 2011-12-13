@@ -26,7 +26,7 @@ var winHome = Titanium.UI.createWindow({
     color2: settings.color2
 });
 var tabHome = Titanium.UI.createTab({
-    icon:'images/home.png',
+    icon:'images/icons/home.png',
     title:'Home',
     window:winHome
 });
@@ -38,7 +38,7 @@ var winStock = Titanium.UI.createWindow({
     color2: settings.color2
 });
 var tabStock = Titanium.UI.createTab({
-    icon:'images/stock.png',
+    icon:'images/icons/stock.png',
     title:'Stock',
     window:winStock
 });
@@ -50,7 +50,7 @@ var winDosages = Titanium.UI.createWindow({
     color2: settings.color2
 });
 var tabDosages = Titanium.UI.createTab({
-    icon:'images/dosages.png',
+    icon:'images/icons/dosages.png',
     title:'Dosages',
     window:winDosages
 });
@@ -64,7 +64,7 @@ var winSettings = Titanium.UI.createWindow({
     color2: settings.color2
 });
 var tabSettings = Titanium.UI.createTab({
-    icon:'images/settings.png',
+    icon:'images/icons/settings.png',
     title:'Settings',
     window:winSettings
 });
@@ -77,7 +77,7 @@ var winMedication = Titanium.UI.createWindow({
     color2: settings.color2
 });
 var tabMedication = Titanium.UI.createTab({
-    icon:'images/medication.png',
+    icon:'images/icons/medicine.png',
     title:'Medication',
     window:winMedication
 });
