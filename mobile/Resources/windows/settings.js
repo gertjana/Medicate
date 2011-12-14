@@ -125,70 +125,13 @@ var button = Titanium.UI.createButton({
    title:"Retrieve api key"
 });
 win.add(button);
-/*
-var redLabel = Ti.UI.createLabel({
-    color:settings.color1,
-    font:{fontSize:12, fontFamily:'Arial'},
-    left:10,
-    top:285,
-    height:20,
-    width:250,
-    text:'red boundary' + redBoundary
-});
-win.add(redLabel);
-
-var redSlider = Ti.UI.createSlider({
-	min:0,
-	max:200,
-	value:redBoundary,
-	height:35,
-	top:305,
-	left:10,
-	width:250	
-});
-win.add(redSlider);
-
-redSlider.addEventListener('change', function(e) {
-	Ti.App.Properties.setString('red', e.value);
-	redLabel.text = 'red boundary ' + redBoundary;
-	win.add(redLabel);
-})
-
-var yellowLabel = Ti.UI.createLabel({
-    color:settings.color1,
-    font:{fontSize:12, fontFamily:'Arial'},
-    left:10,
-    top:345,
-    height:20,
-    width:250,
-    text:'yellow boundary ' + yellowBoundary
-});
-win.add(yellowLabel);
-
-var yellowSlider = Ti.UI.createSlider({
-	min:0,
-	max:200,
-	value:yellowBoundary,
-	height:35,
-	top:365,
-	left:10,
-	width:250	
-});
-
-win.add(yellowSlider);
-
-yellowSlider.addEventListener('change', function(e) {
-	Ti.App.Properties.setString('yellow', e.value);
-	yellowLabel.text = 'yellow boundary ' + yellowBoundary
-})
-*/
 
 var xhr = Titanium.Network.createHTTPClient();
 
 button.addEventListener('click', function() {
    var username = Ti.App.Properties.getString('username');
    var password = Ti.App.Properties.getString('password');
-   var authUri =  Ti.App.Properties.getString('url') + "api/auth/" + username + "/" + password;
+   var authUri =  Ti.App.Properties.getString('url') + "/api/1.0/auth/" + username + "/" + password;
 
 
    Ti.API.info(authUri);

@@ -118,4 +118,4 @@ addStock.addEventListener('click', function()
 	Titanium.UI.createAlertDialog({title:'System Button', message:'Add Stock'}).show();
 });
 win.rightNavButton = addStock;
-
+Ti.UI.currentWindow.fireEvent("focus", null);

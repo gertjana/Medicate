@@ -16,6 +16,8 @@ limitations under the License.
 
 Ti.include("constants.js");
 
+Ti.API.info("home.js");
+
 var tableView;
 var data = [];
 var authors = [];
@@ -27,9 +29,15 @@ win.backgroundImage = '../images/gradientBackground.png';
 var xhr = Titanium.Network.createHTTPClient();
 
 
+xhr.onerror = function() {
+	alert("error");
+}
+
 xhr.onload = function()
 {
     var supplies = JSON.parse(this.responseText).Supplies;    
+    
+    Ti.API.info("found " +supplies.length + " supplies")
     
     data = [];
 	section = Ti.UI.createTableViewSection();
@@ -101,6 +109,7 @@ xhr.onload = function()
 
 
 Titanium.UI.currentWindow.addEventListener('focus', function (e) {
+		Ti.API.info("focus");
         reloadPropertiesAndUris();
 
         Ti.API.info(SUPPLIES_URI);
@@ -128,7 +137,8 @@ takeDose.addEventListener('click', function()
 	Titanium.UI.createAlertDialog({title:'System Button', message:'Take Dose'}).show();
 });
 
-win.rightNavButton = takeDose;
+//win.rightNavButton = takeDose;
 
 
 Titanium.UI.currentWindow.add(tableView);
+Titanium.UI.currentWindow.fireEvent("focus", null);

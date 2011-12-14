@@ -127,3 +127,4 @@ tableView.addEventListener('click', function(e)
 });
 
 Titanium.UI.currentWindow.add(tableView);
+Ti.UI.currentWindow.fireEvent("focus", null);

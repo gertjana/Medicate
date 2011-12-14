@@ -29,10 +29,10 @@ var MEDICATION_URI = "";
 function loadPropertiesAndUris() {
     APIKEY = Ti.App.Properties.getString("key");
     BASE_URI = Ti.App.Properties.getString("url");
-    DOSAGES_URI =   BASE_URI + "api/1.0/user/" + APIKEY + "/dosages";
-    STOCK_URI = BASE_URI + "api/1.0/user/" +  APIKEY + "/stock";
-    SUPPLIES_URI = BASE_URI + "api/1.0/user/" + APIKEY + "/supplies";
-    MEDICATION_URI = BASE_URI + "api/1.0/medicine"
+    DOSAGES_URI =   BASE_URI + "/api/1.0/user/" + APIKEY + "/dosages";
+    STOCK_URI = BASE_URI + "/api/1.0/user/" +  APIKEY + "/stock";
+    SUPPLIES_URI = BASE_URI + "/api/1.0/user/" + APIKEY + "/supplies";
+    MEDICATION_URI = BASE_URI + "/api/1.0/medicine"
 }
 
 loadPropertiesAndUris();

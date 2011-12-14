@@ -119,3 +119,4 @@ addDose.addEventListener('click', function()
 });
 win.rightNavButton = addDose;
 
+Ti.UI.currentWindow.fireEvent("focus", null);
