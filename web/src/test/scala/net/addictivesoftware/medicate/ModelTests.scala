@@ -61,12 +61,10 @@ class ModelTest extends SpecificationWithJUnit  {
     }
   }
 
-  "Supplies of user " should {
+  "Supplies of user " + user.fullName should {
     "contain 2 items" in {
       val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
-      println(supplies)
       supplies.size must be equalTo(2)
-
     }
   }
   

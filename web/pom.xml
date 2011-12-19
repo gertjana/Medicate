@@ -12,8 +12,8 @@
   <artifactId>medicate</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>web Project</name>
-  <inceptionYear>2010</inceptionYear>
+  <name>Medicate Web</name>
+  <inceptionYear>2011</inceptionYear>
   <properties>
     <scala.version>2.9.1</scala.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,7 +24,7 @@
 	  <license>
 	    <name>Apache 2</name>
 	    <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-	    <distribution>repo</distribution>
+	    <distribution>sources</distribution>
 	    <comments>A business-friendly OSS license</comments>
 	  </license>
   </licenses>
