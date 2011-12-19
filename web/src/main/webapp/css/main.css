@@ -14,47 +14,17 @@
 .lift_notice {
 }
 
-.sidebar ul {
-	margin:0;
-	padding:0;
-	border-bottom:1px solid #ccc;
-}
-
-
-.sidebar ul li {
-	margin:0;
-	padding:0;
-	list-style:none;
-	border:1px solid #ccc;
-	border-bottom:none;
-}
-
-.sidebar ul li a {
-	display:block;
-	padding:3px;
-	text-indent:30px;
-	text-decoration:none;
-}
-
-.sidebar ul li span {
-	display:block;
-	padding:3px;
-	text-indent:30px;
-	text-decoration:none;
-}
-
-.sidebar ul li a:hover {
-	background-color: #eee;
-}
-
 table.api {
-    border: 1px solid #444;
+    font-family: "Tahoma";
+    font-size:1em;
+    border: 1px solid #369;
+    padding:0px;
+    border-spacing:0px;
 }
 
 table.api th {
-    background-color:#444;
+    background-color:#369;
     color:white;
-    font-weight:bold;
 }
 
 table.api tr {
@@ -70,6 +40,7 @@ table.api tr.odd {
 }
 td {
     vertical-align:top;
+    padding: 2px 5px 2px 5px;
 }
 
 a, a:hover, a:active, a:visited {
@@ -128,18 +99,19 @@ div.container {
 }
 
 div.header {
+    float:left;
     width:800px;
-    padding:0px;
+    padding:5px;
     color:#369;
     text-align: left;
-    background: #369;
+    background-color: #369;
     background: -webkit-gradient(linear, left top, left bottom, from(#369), to(#69c));
     background: -moz-linear-gradient(top, #369, #69c);
     margin:0px;
 }
 div.footer {
     width:800px;
-    padding:10px;
+    padding:5px;
     color:#CCC;
     text-align: left;
     background: #369;
@@ -150,6 +122,7 @@ div.header a, div.header a:hover, div.header a:visited {
     color:#CCC;
     font-weight:normal;
     font-size:1em;
+
 }
 
 div.content {
@@ -162,6 +135,7 @@ body {
     margin:0px 0px 0px 0px;
     padding:0;
     font-family: "Tahoma";
+    font-size:0.8em;
 }
 
 div.header h1 {
@@ -170,11 +144,12 @@ div.header h1 {
 
 
 ul.menu {
+    font-size: 1em;
 	display:inline-block;
 	float:right;
-	background-color:#369;
 	padding:0px;
 	margin:0px;
+	padding-bottom:2px;
 }
 
 ul.menu li {
@@ -184,7 +159,6 @@ ul.menu li {
 }
 
 ul.menu li a {
-	font-weight:bold;
 	color:#369;
 	padding:0px 10px 2px 2px;
 }
@@ -192,11 +166,11 @@ ul.menu li a {
 ul.menu li a:hover {
 	text-decoration:none;
 	padding:0px 10px 2px 2px;
-	font-weight:bold;
-	background-color:#69c;
-	color:white;
+	color:#666;
 }
 
-
+h2 {
+    color:#369;
+}
 
 
