@@ -122,9 +122,14 @@ form {
   background: -moz-linear-gradient(top, white, #69c);
 }
 
+div.container {
+	margin:0px;
+	padding:0px;
+}
+
 div.header {
-    width:100%;
-    padding:10px;
+    width:800px;
+    padding:0px;
     color:#369;
     text-align: left;
     background: #369;
@@ -133,7 +138,7 @@ div.header {
     margin:0px;
 }
 div.footer {
-    width:100%;
+    width:800px;
     padding:10px;
     color:#CCC;
     text-align: left;
@@ -148,12 +153,50 @@ div.header a, div.header a:hover, div.header a:visited {
 }
 
 div.content {
+	clear:both;
     padding:20px;
     padding-top:0px;
 }
 
 body {
-    margin:0;
+    margin:0px 0px 0px 0px;
     padding:0;
     font-family: "Tahoma";
 }
+
+div.header h1 {
+	margin:0px;
+}
+
+
+ul.menu {
+	display:inline-block;
+	float:right;
+	background-color:#369;
+	padding:0px;
+	margin:0px;
+}
+
+ul.menu li {
+	position: relative;
+	text-align: center;
+	display: inline-block;
+}
+
+ul.menu li a {
+	font-weight:bold;
+	color:#369;
+	padding:0px 10px 2px 2px;
+}
+
+ul.menu li a:hover {
+	text-decoration:none;
+	padding:0px 10px 2px 2px;
+	font-weight:bold;
+	background-color:#69c;
+	color:white;
+}
+
+
+
+
