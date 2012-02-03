@@ -2,23 +2,53 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <parent>
-       <groupId>net.addictivesoftware.medicate</groupId>
-       <artifactId>medicate</artifactId>
-       <version>1.0-SNAPSHOT</version>
-   </parent>
+
+  <organization>
+    <name>Addictive Software</name>
+    <url>http://blog.addictivesoftware.net</url>
+  </organization>  
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.addictivesoftware.medicate</groupId>
-  <artifactId>medicate-web</artifactId>
+  <artifactId>medicate</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>Medicate Web</name>
+  <packaging>pom</packaging>
+  <name>Medicate</name>
+  <inceptionYear>2011</inceptionYear>
   <properties>
     <scala.version>2.9.1</scala.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
   </properties>
 
+  <modules>
+      <module>web</module>
+  </modules>
+
+
+  <licenses>
+	  <license>
+	    <name>Apache 2</name>
+	    <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+	    <distribution>sources</distribution>
+	    <comments>A business-friendly OSS license</comments>
+	  </license>
+  </licenses>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/gertjana/Medicate/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://major7.ci.cloudbees.com/</url>
+  </ciManagement>
+  <scm>
+  	<tag>HEAD</tag>
+  	<url>https://github.com/gertjana/Medicate</url>
+  	<connection>scm:git:git://github.com/gertjana/Medicate.git</connection>
+  	<developerConnection>scm:git:ssh://git@github.com:gertjana/Medicate.git</developerConnection>
+  </scm>
+  
   <repositories>
     <repository>
       <id>scala-tools.releases</id>
@@ -60,77 +90,6 @@
       <url>http://maven.springframework.org/milestone</url>
     </pluginRepository>
   </pluginRepositories>
-
-  <dependencies>
-    <dependency>
-      <groupId>net.liftweb</groupId>
-      <artifactId>lift-mapper_2.9.1</artifactId>
-      <version>2.4-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <version>0.9.26</version>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.2.138</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.specs2</groupId>
-        <artifactId>specs2_2.9.1</artifactId>
-        <version>1.6.1</version>
-        <scope>test</scope>
-    </dependency>
-
-    <dependency>
-        <groupId>org.specs2</groupId>
-        <artifactId>specs2-scalaz-core_2.9.1</artifactId>
-        <version>6.0.1</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.7</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.scala-tools.testing</groupId>
-      <artifactId>specs_2.9.1</artifactId>
-      <version>1.6.9</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mortbay.jetty</groupId>
-      <artifactId>jetty</artifactId>
-      <version>6.1.25</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- for LiftConsole -->
-    <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-compiler</artifactId>
-      <version>${scala.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- CloudFoundry -->
-    <dependency>
-      <groupId>org.cloudfoundry</groupId>
-      <artifactId>cloudfoundry-runtime</artifactId>
-      <version>0.6.1</version>
-    </dependency>
-
-  </dependencies>
 
   <build>
     <finalName>MedicateWeb</finalName>
