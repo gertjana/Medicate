@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<servers>
+		<server>
+			<id>mycloudfoundry-instance</id>
+			<username>email@registered.cloudfoundry.com</username>
+			<password>s3cr3t</password>
+		</server>
+	</servers>
+</settings>
