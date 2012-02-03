@@ -160,7 +160,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
         })
       }) : JValue
     }
-
+/*
     case key :: "takedose" :: scheduleString :: _ XmlPut _ => {
         takeDose(getUserIdFromKey(key), Schedule.parse(scheduleString));
     }
@@ -168,7 +168,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
     case key :: "takedose" :: schedule :: _ JsonPut _ => {
         takeDose(getUserIdFromKey(key), Schedule.parse(scheduleString));
     }
-
+  */
   })
 
   /**
@@ -201,6 +201,8 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
  * @param user_id the id of the user
  * @param schedule the time of day the dose is taken
  */
+
+  /*
   def takeDose(user_id:Long, schedule:Schedule): Boolean = {
       Dose.findAll(By(Dose.user, user_id), By(Dose.schedule, schedule)).foreach(dose => {
           Stock.find(By(Stock.user, user_id), By(Stock.medicine, dose.medicine)) match {
@@ -214,5 +216,5 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
           }
       })
       true
-  }
+  } */
 }
