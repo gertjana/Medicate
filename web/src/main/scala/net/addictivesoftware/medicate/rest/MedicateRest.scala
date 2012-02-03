@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2011 Addictive Software
+  * Copyright 2006-2011 Addictive Software
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -160,6 +160,15 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
         })
       }) : JValue
     }
+
+    case key :: "takedose" :: scheduleString :: _ XmlPut _ => {
+        takeDose(getUserIdFromKey(key), Schedule.parse(scheduleString));
+    }
+
+    case key :: "takedose" :: schedule :: _ JsonPut _ => {
+        takeDose(getUserIdFromKey(key), Schedule.parse(scheduleString));
+    }
+
   })
 
   /**
@@ -186,4 +195,24 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
   }
 
 
+/**
+ * Helper method that administers taking a dose
+ * Stock for medicine that have a dose for the current schedule are decreased by one
+ * @param user_id the id of the user
+ * @param schedule the time of day the dose is taken
+ */
+  def takeDose(user_id:Long, schedule:Schedule): Boolean = {
+      Dose.findAll(By(Dose.user, user_id), By(Dose.schedule, schedule)).foreach(dose => {
+          Stock.find(By(Stock.user, user_id), By(Stock.medicine, dose.medicine)) match {
+            case Full(stock) => {
+              stock.amount(stock.amount.is-1);
+              stock.save;
+            }
+            case(_) => {
+              //ignore or fail stock not found?
+            }
+          }
+      })
+      true
+  }
 }
