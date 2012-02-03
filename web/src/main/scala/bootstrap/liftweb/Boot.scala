@@ -69,8 +69,9 @@ class Boot {
 
     val home = Loc("HomePage", "index" :: Nil, "Home Page", Hidden)
     val restapi = Loc("RestApiPage", "restapi" :: Nil, "Rest Api")
+    val about = Loc("AboutPage", "about" :: Nil, "About")
     val crudMenu = Medicine.menus ::: Dose.menus ::: Stock.menus
-    val allMenus = Menu(home) :: Menu(restapi) :: User.sitemap
+    val allMenus = Menu(home) :: Menu(restapi) :: Menu(about) :: User.sitemap
     val mySiteMap = SiteMap((allMenus ::: crudMenu): _*)
 
 
