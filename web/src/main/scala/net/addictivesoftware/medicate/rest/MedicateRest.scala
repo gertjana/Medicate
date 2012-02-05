@@ -18,8 +18,7 @@ package net.addictivesoftware.medicate.rest;
 
 import net.liftweb.http._
 import net.liftweb.http.rest._
-import net.liftweb.http.auth._
-import net.addictivesoftware.medicate.model._
+import net.addictivesoftware.medicate.model.{User, Stock, Dose,  Medicine, Schedule}
 import net.addictivesoftware.medicate.lib.CollectionUtils
 import net.liftweb.common._
 import net.liftweb.mapper._
@@ -160,20 +159,45 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
         })
       }) : JValue
     }
-/*
-    case key :: "takedose" :: scheduleString :: _ XmlPut _ => {
-        takeDose(getUserIdFromKey(key), Schedule.parse(scheduleString));
+
+    // take dose
+    case key :: "takedose" :: scheduleString :: _ XmlPost _ => {
+        <result>
+          takeDose(getUserIdFromKey(key), Schedule.withName(scheduleString));
+        </result>
     }
 
-    case key :: "takedose" :: schedule :: _ JsonPut _ => {
-        takeDose(getUserIdFromKey(key), Schedule.parse(scheduleString));
+    case key :: "takedose" :: scheduleString :: _ JsonPost _ => {
+        ("Result", takeDose(getUserIdFromKey(key), Schedule.withName(scheduleString))) :JValue;
     }
-  */
+
+    // add stock
+    case key :: "addstock" :: _ XmlPost _ => {
+      for {
+        medicineId <- S.param("medicine") ?~ "medicine param is mandatory"
+        amount <- S.param("amount") ?~ "amount param is mandatory"
+      } yield {
+        val id = getUserIdFromKey(key);
+        <result> {
+          addStock(id, medicineId.toLong, amount.toLong)
+        }</result>
+      }
+    }
+    case key :: "addstock" :: _ JsonPost _ => {
+      for {
+        medicineId <- S.param("medicine") ?~ "medicine param is mandatory"
+        amount <- S.param("amount") ?~ "amount param is mandatory"
+      } yield {
+        val id = getUserIdFromKey(key);
+        ("Result", addStock(id, medicineId.toLong, amount.toLong)):JValue;
+      }
+    }
+
   })
 
   /**
    * Helper method that returns the nr of days the user will have medicines with his current intake as a map
-   * @param the id of the user
+   * @param user_id the id of the user
    * @return A Map containing his medicines and the nr of days left for each of them 
    */
   def calculateSupplies(user_id : Long) = {
@@ -195,15 +219,13 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
   }
 
 
-/**
- * Helper method that administers taking a dose
- * Stock for medicine that have a dose for the current schedule are decreased by one
- * @param user_id the id of the user
- * @param schedule the time of day the dose is taken
- */
-
-  /*
-  def takeDose(user_id:Long, schedule:Schedule): Boolean = {
+  /**
+   * Helper method that administers taking a dose
+   * Stock for medicine that have a dose for the current schedule are decreased by one
+   * @param user_id the id of the user
+   * @param schedule the time of day the dose is taken
+   */
+  def takeDose(user_id:Long, schedule:Schedule.Value): Boolean = {
       Dose.findAll(By(Dose.user, user_id), By(Dose.schedule, schedule)).foreach(dose => {
           Stock.find(By(Stock.user, user_id), By(Stock.medicine, dose.medicine)) match {
             case Full(stock) => {
@@ -211,10 +233,33 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
               stock.save;
             }
             case(_) => {
-              //ignore or fail stock not found?
+              false
             }
           }
       })
       true
-  } */
+  }
+
+  /**
+   * Helper method that adds stock
+   * note that decreasing stock is possible by specifying a negative amount
+   *
+   * @param user_id  the user for which to add stock
+   * @param medicine_id the medicine to add
+   * @param amount the amount of medicine to add
+   * @return true if successful
+   */
+  def addStock(user_id:Long, medicine_id:Long, amount:Long): Boolean = {
+    Stock.find(By(Stock.user, user_id), By(Stock.medicine, medicine_id)) match {
+      case Full(stock) => {
+        stock.amount(stock.amount.is + amount);
+        stock.save;
+      }
+      case (_) => {
+        false
+      }
+    }
+    true
+  }
+  
 }

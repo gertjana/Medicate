@@ -68,7 +68,8 @@ object Dose extends Dose with LongKeyedMetaMapper[Dose] with CRUDify[Long, Dose]
 /**
  * Enumeration of times in a day a @see Dose of @see Medicine can be taken
  */
+/*
 object Schedule extends Enumeration {
     type Schedule = Value
     val Wakeup, Breakfast, Lunch, Dinner, BeforeSleep = Value
-}
+} */

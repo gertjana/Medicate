@@ -4,6 +4,7 @@ import org.specs2.mutable.SpecificationWithJUnit
 import net.addictivesoftware.medicate.model.{Medicine, Dose, Stock, Schedule, User}
 import net.addictivesoftware.medicate.rest.MedicateRest
 import net.liftweb.mapper.By
+import net.liftweb.common.Full
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
@@ -83,5 +84,43 @@ class ModelTest extends SpecificationWithJUnit  {
       supplies.tail.head._2 must be equalTo(90)
     }
   }
+  
+  "taking a dose at breakfast and one at dinner" should {
+    "reduce the supplies of glimepridie by one, and methformine by two" in {
+      MedicateRest.takeDose(user.id, Schedule.Breakfast);
+      MedicateRest.takeDose(user.id, Schedule.Dinner);
+
+      val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
+      supplies.head._1 must be equalTo("Methformine (500mg)")
+      supplies.head._2 must be equalTo(44)
+      supplies.tail.head._1 must be equalTo("Glimepiride (2mg)")
+      supplies.tail.head._2 must be equalTo(89)
+    }
+  }
+  
+  
+  "Adding stock for glimepiride" should {
+    "increase the amount" in {
+      MedicateRest.addStock(user.id, glimepiride.id, 90);
+
+      Stock.find(By(Stock.medicine, glimepiride.id), By(Stock.user, user.id)) match {
+        case Full(stock) => { stock.amount.is must be equalTo(179) }
+        case (_) => { 1 must_== 2 }
+      }
+
+    }
+  }
+
+  "Adding stock for methformine" should {
+    "increase the amount" in {
+      MedicateRest.addStock(user.id, methformine.id, 90);
+
+      Stock.find(By(Stock.medicine, methformine.id), By(Stock.user, user.id)) match {
+        case Full(stock) => { stock.amount.is must be equalTo(178) }
+        case (_) => { 1 must_== 2 }
+      }
+    }
+  }
+
 }
 
