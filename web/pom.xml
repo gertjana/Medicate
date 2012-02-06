@@ -14,6 +14,35 @@
     <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
   </properties>
 
+    <organization>
+        <name>Addictive Software</name>
+        <url>http://blog.addictivesoftware.net</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>sources</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/gertjana/Medicate/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://major7.ci.cloudbees.com/</url>
+    </ciManagement>
+    <scm>
+        <tag>HEAD</tag>
+        <url>https://github.com/gertjana/Medicate</url>
+        <connection>scm:git:git://github.com/gertjana/Medicate.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:gertjana/Medicate.git</developerConnection>
+    </scm>
+
   <repositories>
     <repository>
       <id>scala-tools.releases</id>
