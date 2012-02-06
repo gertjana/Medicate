@@ -10,25 +10,25 @@ import org.specs2.runner.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class ModelTest extends SpecificationWithJUnit  {
+class ModelTests extends SpecificationWithJUnit  {
 
   // initialise an in memory h2 database
   InMemoryDB.init;
 
   // create some medicines
-  val methformine = Medicine.create.name("Methformine").amount(500).saveMe;
-  val glimepiride = Medicine.create.name("Glimepiride").amount(2).saveMe;
-  val omezopranol = Medicine.create.name("Omezopranol").amount(20).saveMe;
+  val methformine = Medicine.create.name("Methformine").amount(500).saveMe();
+  val glimepiride = Medicine.create.name("Glimepiride").amount(2).saveMe();
+  val omezopranol = Medicine.create.name("Omezopranol").amount(20).saveMe();
 
   //Create a user
-  val user = User.create.firstName("Theo").lastName("Tester").email("theo@tester.com").password("test").saveMe;
+  val user = User.create.firstName("Theo").lastName("Tester").email("theo@tester.com").password("test").saveMe();
 
   //create some dosages/stock for this user
-  Dose.create.user(user).medicine(glimepiride).schedule(Schedule.Breakfast).save;
-  Dose.create.user(user).medicine(methformine).schedule(Schedule.Breakfast).save;
-  Dose.create.user(user).medicine(methformine).schedule(Schedule.Dinner).save;
-  Stock.create.user(user).medicine(methformine).amount(90).save;
-  Stock.create.user(user).medicine(glimepiride).amount(90).save;
+  Dose.create.user(user).medicine(glimepiride).schedule(Schedule.Breakfast).save();
+  Dose.create.user(user).medicine(methformine).schedule(Schedule.Breakfast).save();
+  Dose.create.user(user).medicine(methformine).schedule(Schedule.Dinner).save();
+  Stock.create.user(user).medicine(methformine).amount(90).save();
+  Stock.create.user(user).medicine(glimepiride).amount(90).save();
 
   "The Database" should {
     "contain 3 medicines" in {

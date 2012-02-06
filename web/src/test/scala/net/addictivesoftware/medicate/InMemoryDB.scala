@@ -12,12 +12,12 @@ object InMemoryDB {
   Logger.setup = Full(net.liftweb.util.LoggingAutoConfigurer())
   Logger.setup.foreach { _.apply() }
 
-  def init {
+  def init() {
     DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
     Schemifier.destroyTables_!!(Schemifier.infoF _, User, Medicine, Dose, Stock)
     Schemifier.schemify(true, Schemifier.infoF _, User, Medicine, Dose, Stock)
   }
-  def shutdown {
+  def shutdown() {
 
   }
 }
