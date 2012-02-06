@@ -159,31 +159,36 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
         })
       }) : JValue
     }
+  })
+
+  serve ( "api" / version / "user" prefix {
 
     // take dose
-    case key :: "takedose" :: scheduleString :: _ XmlPost _ => {
-        <result>
-          takeDose(getUserIdFromKey(key), Schedule.withName(scheduleString));
-        </result>
+    case key :: "takedose" :: scheduleString :: _ XmlGet _ => {
+        <result>{
+          val userId = getUserIdFromKey(key);
+          takeDose(userId, Schedule.withName(scheduleString));
+        }</result>
     }
 
-    case key :: "takedose" :: scheduleString :: _ JsonPost _ => {
-        ("Result", takeDose(getUserIdFromKey(key), Schedule.withName(scheduleString))) :JValue;
+    case key :: "takedose" :: scheduleString :: _ JsonGet _ => {
+      val userId = getUserIdFromKey(key);
+      ("Result", takeDose(userId, Schedule.withName(scheduleString))) :JValue;
     }
 
     // add stock
-    case key :: "addstock" :: _ XmlPost _ => {
+    case key :: "addstock" :: _ XmlGet _ => {
       for {
         medicineId <- S.param("medicine") ?~ "medicine param is mandatory"
         amount <- S.param("amount") ?~ "amount param is mandatory"
       } yield {
-        val id = getUserIdFromKey(key);
-        <result> {
+        <result>{
+          val id = getUserIdFromKey(key);
           addStock(id, medicineId.toLong, amount.toLong)
         }</result>
       }
     }
-    case key :: "addstock" :: _ JsonPost _ => {
+    case key :: "addstock" :: _ JsonGet _ => {
       for {
         medicineId <- S.param("medicine") ?~ "medicine param is mandatory"
         amount <- S.param("amount") ?~ "amount param is mandatory"
@@ -230,7 +235,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
           Stock.find(By(Stock.user, user_id), By(Stock.medicine, dose.medicine)) match {
             case Full(stock) => {
               stock.amount(stock.amount.is-1);
-              stock.save;
+              stock.save();
             }
             case(_) => {
               false
