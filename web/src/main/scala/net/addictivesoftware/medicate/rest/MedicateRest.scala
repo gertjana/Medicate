@@ -105,13 +105,13 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
       var id = getUserIdFromKey(key)
       <dosages>
         {
-          Dose.findAll(By(Dose.user, id)).map(dose => dose.asXml)
+          Dose.findAll(By(Dose.user, id), OrderBy(Dose.schedule, Ascending)).map(dose => dose.asXml)
         }
       </dosages>
     }
     case key :: "dosages" :: _ JsonGet _=> {
       var id = getUserIdFromKey(key)
-      ("dosages" -> Dose.findAll(By(Dose.user, id)).map(dose => dose.asJson)) : JValue
+      ("dosages" -> Dose.findAll(By(Dose.user, id), OrderBy(Dose.schedule, Ascending)).map(dose => dose.asJson)) : JValue
     }
 
     // return stock
