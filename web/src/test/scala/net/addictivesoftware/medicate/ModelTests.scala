@@ -10,7 +10,7 @@ import org.specs2.runner.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class ModelTests extends SpecificationWithJUnit  {
+class ModelTest extends SpecificationWithJUnit  {
 
   // initialise an in memory h2 database
   InMemoryDB.init;
