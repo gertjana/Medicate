@@ -19,12 +19,16 @@ var settings = {
     color2: '#444462'
 };
 
+var isAndroid = Ti.Platform.osname == 'android';
+var isIphone = Ti.Platform.osname == 'iphone';
+
 var APIKEY = "";
 var BASE_URI = "";
 var STOCK_URI = "";
 var DOSAGES_URI = "";
 var SUPPLIES_URI = "";
 var MEDICATION_URI = "";
+var TAKEDOSE_URI = "";
 
 function loadPropertiesAndUris() {
     APIKEY = Ti.App.Properties.getString("key");
@@ -32,7 +36,8 @@ function loadPropertiesAndUris() {
     DOSAGES_URI =   BASE_URI + "/api/1.0/user/" + APIKEY + "/dosages";
     STOCK_URI = BASE_URI + "/api/1.0/user/" +  APIKEY + "/stock";
     SUPPLIES_URI = BASE_URI + "/api/1.0/user/" + APIKEY + "/supplies";
-    MEDICATION_URI = BASE_URI + "/api/1.0/medicine"
+    MEDICATION_URI = BASE_URI + "/api/1.0/medicine";
+    TAKEDOSE_URI = BASE_URI + "/api/1.0/user/" + APIKEY + "/takedose";
 }
 
 loadPropertiesAndUris();

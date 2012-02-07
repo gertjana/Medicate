@@ -32,14 +32,24 @@ xhr.onload = function()
     Ti.API.info(dosages.length);
     data = [];
 	section = Ti.UI.createTableViewSection();
-    
+    sectionName = "";
     for (var i=0;i<dosages.length;i++) {
         var dose = dosages[i].dose;       
         var name = dose.medicine;
         var schedule = dose.schedule;
         var id = dose.id;
                 
-        Ti.API.info(name);        
+        if (sectionName == "") {
+        	 sectionName = schedule;
+        	 section.headerTitle = schedule;
+        	 
+       	} 
+       	if (sectionName != schedule) {
+       		data.push(section);
+       		section = Ti.UI.createTableViewSection();
+       		section.headerTitle = schedule;
+       		sectionName = schedule;
+       	}
                 
         var row = Ti.UI.createTableViewRow();
         

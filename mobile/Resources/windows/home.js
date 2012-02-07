@@ -120,6 +120,47 @@ Titanium.UI.currentWindow.addEventListener('focus', function (e) {
     
 });
 
+var picker = Ti.UI.createPicker({
+  top:20
+});
+
+var optionsDialogOpts = {
+	options:['Wakeup', 'Breakfast', 'Lunch', 'Dinner', 'Bedtime', 'Cancel'],
+	cancel:5,
+	title:'Take dose for:'
+};
+
+if (isAndroid) {
+	optionsDialogOpts.selectedIndex = 5;
+}
+
+var dialog = Titanium.UI.createOptionDialog(optionsDialogOpts);
+dialog.addEventListener('click',function(e){
+	Ti.API.info('clicked' + e.index);
+	if (e.index != 5) { //cancel
+		var xhr2 = Ti.Network.createHTTPClient();
+		
+		Ti.API.info(TAKEDOSE_URI + "/" + dialog.options[e.index]);
+		
+		xhr2.open("GET", TAKEDOSE_URI + "/" + dialog.options[e.index]);
+	    xhr2.setRequestHeader("Accept", "application/json");
+	    xhr2.send();
+		
+		xhr2.onerror = function() {
+			alert("An error occured taking a dose");
+		}
+	
+		xhr2.onload = function() {
+			Titanium.UI.createAlertDialog({title:'Take dose', message:'your daily dose is taken'}).show();
+			
+			xhr.open('GET',SUPPLIES_URI);
+	        xhr.setRequestHeader("Accept", "application/json");
+	        xhr.send();	
+		}				
+	}
+});
+
+
 tableView = Titanium.UI.createTableView({
 	data:data,
 	filterAttribute:'filter',
@@ -134,10 +175,21 @@ var takeDose = Titanium.UI.createButton({
 });
 takeDose.addEventListener('click', function()
 {
-	Titanium.UI.createAlertDialog({title:'System Button', message:'Take Dose'}).show();
+	dialog.show();
 });
 
-//win.rightNavButton = takeDose;
+var refresh = Ti.UI.createButton({
+	systemButton:Ti.UI.iPhone.SystemButton.REFRESH
+});
+
+refresh.addEventListener('click', function(){
+        xhr.open('GET',SUPPLIES_URI);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send();	
+});
+
+win.leftNavButton = refresh;
+win.rightNavButton = takeDose;
 
 
 Titanium.UI.currentWindow.add(tableView);

@@ -236,8 +236,10 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
             case Full(stock) => {
               stock.amount(stock.amount.is-1);
               stock.save();
+              println("Reduced stock of " + stock.medicine.toString() + " by 1");
             }
             case(_) => {
+              println("Could not find stock for " + dose.medicine.toString());
               false
             }
           }
