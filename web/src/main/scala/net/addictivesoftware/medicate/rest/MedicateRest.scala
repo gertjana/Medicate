@@ -198,6 +198,20 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
       }
     }
 
+    case key :: dosageoptions :: _ XmlGet _ => {
+      <dosageOptions>{
+        val id = getUserIdFromKey(key);
+        val options:List[String] = getDosageOptions(id);
+        options.map(_ => <option>_</option>)
+      }</dosageOptions>
+    }
+
+    case key :: dosageoptions :: _ JsonGet _ => {
+        val id = getUserIdFromKey(key);
+        val options: List[String] = getDosageOptions(id);
+        ("DosageOptions" -> new JArray(options.map(new JString(_)))) : JValue
+    }
+
   })
 
   /**
@@ -268,5 +282,11 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
     }
     true
   }
+  
+  def getDosageOptions(id:Long): List[String] = {
+    Dose.findAll(By(Dose.user, id), OrderBy(Dose.schedule, Ascending))
+      .map(_.schedule.is.toString()).distinct;
+  }
+  
   
 }

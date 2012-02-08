@@ -122,5 +122,14 @@ class ModelTest extends SpecificationWithJUnit  {
     }
   }
 
+  "Getting the times dosages are configured for" should {
+    "return 2 items: Breakfast and Dinner" in {
+      val options = MedicateRest.getDosageOptions(user.id);
+      options.size must be equalTo(2)
+      options.head must be equalTo("Breakfast");
+      options.tail.head must be equalTo("Dinner");
+    }
+  }
+
 }
 

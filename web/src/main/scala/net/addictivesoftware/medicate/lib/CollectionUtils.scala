@@ -38,5 +38,4 @@ trait CollectionUtils {
   def makeImmutable[A,B](map: scala.collection.mutable.Map[A,B]): Map[A, B] = {
     map.map(kv => (kv._1,kv._2)).toMap
   }
-
 }
