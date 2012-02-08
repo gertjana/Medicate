@@ -92,25 +92,19 @@
             <td>GET</td>
             <td>Supplies, how long will his stock last, giving the current dosages.</td>
         </tr>
+         <tr>
+             <td><a href="/api/1.0/user/{key}/dosageoptions">/api/1.0/user/{key}/dosageoptions</a> </td>
+             <td>GET</td>
+             <td>Returns the daily dosage schedule for this user</td>
+         </tr>
         <tr>
-            <td>/api/1.0/user/{key}/takedose</td>
-            <td>POST</td>
-            <td colspan="2">take a dose, reducing stock
-                <table class="api">
-                    <tr>
-                        <th>Param</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr class="odd">
-                        <td>schedule</td>
-                        <td>One of Wakeup, Breakfast, Lunch, Dinner, BeforeSleep</td>
-                    </tr>
-                </table>
-            </td>
+            <td><a href="/api/1.0/user/{key}/takedose/{schedule}">/api/1.0/user/{key}/takedose/{schedule}</a></td>
+            <td>GET</td>
+            <td colspan="2">take a dose, reducing stock</td>
         </tr>
         <tr class="odd">
-            <td>/api/1.0/user/{key}/addstock/</td>
-            <td>POST</td>
+            <td><a href="/api/1.0/user/{key}/addstock/">/api/1.0/user/{key}/addstock/</a></td>
+            <td>GET</td>
             <td>add stock
                 <table class="api">
                      <tr>
