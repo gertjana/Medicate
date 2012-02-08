@@ -202,7 +202,7 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
       <dosageOptions>{
         val id = getUserIdFromKey(key);
         val options:List[String] = getDosageOptions(id);
-        options.map(_ => <option>{_}</option>)
+        options.map(option => <option>{option}</option>)
       }</dosageOptions>
     }
 
