@@ -9,7 +9,7 @@
         <target device="blackberry">false</target>
     </deployment-targets>
     <id>net.addictivesoftware.medicate</id>
-    <name>Medicate Mobile</name>
+    <name>Medicate</name>
     <version>1.0</version>
     <publisher>gertjan</publisher>
     <url>http://medicate.addictivesoftware.net</url>
