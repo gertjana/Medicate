@@ -31,10 +31,9 @@ import net.liftweb.json.JsonDSL._
  * Extended with Liftweb's Resthelper and our own @see RestUtils
  */
 object MedicateRest extends RestHelper with RestUtils {
-  def version = "1.0";
 
   // generic query-ing of medicine
-  serve( "api" / version / "medicine" prefix {
+  serve( "api" / "1.0" / "medicine" prefix {
     // single medicine
     case AsLong(id) :: _ XmlGet _=>
       {
@@ -67,7 +66,7 @@ object MedicateRest extends RestHelper with RestUtils {
 
   // user authentication
   // FIXME now has password in the url in plain text
-  serve ("api" / version / "auth" prefix {
+  serve ("api" / "1.0" / "auth" prefix {
     case email :: password :: _ XmlGet _ => {
       User.find(By(User.email, email)) match {
         case Full(u) =>
@@ -98,7 +97,7 @@ object MedicateRest extends RestHelper with RestUtils {
   })
 
   // user specific calls
-  serve ( "api" / version / "user" prefix {
+  serve ( "api" / "1.0" / "user" prefix {
     //return dosages
     case key :: "dosages" :: _ XmlGet _=> {
       var id = getUserIdFromKey(key)
@@ -160,7 +159,7 @@ object MedicateRest extends RestHelper with RestUtils {
     }
   })
 
-  serve ( "api" / version / "user" prefix {
+  serve ( "api" / "1.0" / "user" prefix {
 
     // take dose
     case key :: "takedose" :: scheduleString :: _ XmlGet _ => {
