@@ -16,22 +16,21 @@
 
 package net.addictivesoftware.medicate.rest;
 
-import net.liftweb.http._
-import net.liftweb.http.rest._
+import net.liftweb.http.{XmlResponse,JsonResponse, S}
+import net.liftweb.http.rest.RestHelper
 import net.addictivesoftware.medicate.model.{User, Stock, Dose,  Medicine, Schedule}
-import net.addictivesoftware.medicate.lib.CollectionUtils
-import net.liftweb.common._
-import net.liftweb.mapper._
+import net.liftweb.common.Full
+import net.liftweb.mapper.{By, OrderBy, Ascending}
 import net.liftweb.util.Helpers.AsLong
-import net.liftweb.json._
+import net.liftweb.json.{JArray, JString, JValue}
 import net.liftweb.json.JsonDSL._
 
 /**
  * Main REST interface
  * 
- * Extended with Liftweb's Resthelper and our own @see RestUtils and @see CollectionUtils
+ * Extended with Liftweb's Resthelper and our own @see RestUtils
  */
-object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
+object MedicateRest extends RestHelper with RestUtils {
   def version = "1.0";
 
   // generic query-ing of medicine
@@ -214,79 +213,6 @@ object MedicateRest extends RestHelper with RestUtils with CollectionUtils {
 
   })
 
-  /**
-   * Helper method that returns the nr of days the user will have medicines with his current intake as a map
-   * @param user_id the id of the user
-   * @return A Map containing his medicines and the nr of days left for each of them 
-   */
-  def calculateSupplies(user_id : Long) = {
-      val dosages = Dose.findAll(By(Dose.user, user_id))
-      val dosageMap = scala.collection.mutable.Map[String, Long]();
 
-      //get a map of medicine and the amount of them taken daily
-      dosages.foreach(dose => {
-        val medicine = dose.medicine.obj.map(medicine => medicine.toString).openOr("");
-        dosageMap(medicine) = (dosageMap.getOrElseUpdate(medicine,0)+1)
-      })
-
-      //get a map of medicine and the amount in stock
-      val stockMap = Stock.findAll(By(Stock.user, user_id))
-                          .map(stock => (stock.medicine.obj.map(medicine => medicine.toString).openOr(""), stock.amount.is))
-                          .toMap
-      //merging the maps by medicine, while calculating stock/daily intake
-      mergeMap(List(stockMap, makeImmutable(dosageMap)))((stock, dailyIntake) => stock / dailyIntake)
-  }
-
-
-  /**
-   * Helper method that administers taking a dose
-   * Stock for medicine that have a dose for the current schedule are decreased by one
-   * @param user_id the id of the user
-   * @param schedule the time of day the dose is taken
-   */
-  def takeDose(user_id:Long, schedule:Schedule.Value): Boolean = {
-      Dose.findAll(By(Dose.user, user_id), By(Dose.schedule, schedule)).foreach(dose => {
-          Stock.find(By(Stock.user, user_id), By(Stock.medicine, dose.medicine)) match {
-            case Full(stock) => {
-              stock.amount(stock.amount.is-1);
-              stock.save();
-              println("Reduced stock of " + stock.medicine.toString() + " by 1");
-            }
-            case(_) => {
-              println("Could not find stock for " + dose.medicine.toString());
-              false
-            }
-          }
-      })
-      true
-  }
-
-  /**
-   * Helper method that adds stock
-   * note that decreasing stock is possible by specifying a negative amount
-   *
-   * @param user_id  the user for which to add stock
-   * @param medicine_id the medicine to add
-   * @param amount the amount of medicine to add
-   * @return true if successful
-   */
-  def addStock(user_id:Long, medicine_id:Long, amount:Long): Boolean = {
-    Stock.find(By(Stock.user, user_id), By(Stock.medicine, medicine_id)) match {
-      case Full(stock) => {
-        stock.amount(stock.amount.is + amount);
-        stock.save;
-      }
-      case (_) => {
-        false
-      }
-    }
-    true
-  }
-  
-  def getDosageOptions(id:Long): List[String] = {
-    Dose.findAll(By(Dose.user, id), OrderBy(Dose.schedule, Ascending))
-      .map(_.schedule.is.toString()).distinct;
-  }
-  
   
 }
