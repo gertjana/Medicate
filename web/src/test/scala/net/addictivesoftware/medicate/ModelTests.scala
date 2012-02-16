@@ -77,7 +77,7 @@ class ModelTest extends SpecificationWithJUnit  {
     }
   }
   
-  "second supply" should {
+  "Second supply" should {
     "contain 90 days of Glimepiride" in {
       val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
       supplies.tail.head._1 must be equalTo("Glimepiride (2mg)")
@@ -85,7 +85,7 @@ class ModelTest extends SpecificationWithJUnit  {
     }
   }
   
-  "taking a dose at breakfast and one at dinner" should {
+  "Taking a dose at breakfast and one at dinner" should {
     "reduce the supplies of glimepridie by one, and methformine by two" in {
       MedicateRest.takeDose(user.id, Schedule.Breakfast);
       MedicateRest.takeDose(user.id, Schedule.Dinner);
@@ -100,7 +100,7 @@ class ModelTest extends SpecificationWithJUnit  {
   
   
   "Adding stock for glimepiride" should {
-    "increase the amount" in {
+    "increase the amount by 90" in {
       MedicateRest.addStock(user.id, glimepiride.id, 90);
 
       Stock.find(By(Stock.medicine, glimepiride.id), By(Stock.user, user.id)) match {
@@ -112,7 +112,7 @@ class ModelTest extends SpecificationWithJUnit  {
   }
 
   "Adding stock for methformine" should {
-    "increase the amount" in {
+    "increase the amount by 90" in {
       MedicateRest.addStock(user.id, methformine.id, 90);
 
       Stock.find(By(Stock.medicine, methformine.id), By(Stock.user, user.id)) match {
@@ -122,7 +122,7 @@ class ModelTest extends SpecificationWithJUnit  {
     }
   }
 
-  "Getting the times dosages are configured for" should {
+  "Getting the times a dosage needs to be taken" should {
     "return 2 items: Breakfast and Dinner" in {
       val options = MedicateRest.getDosageOptions(user.id);
       options.size must be equalTo(2)
