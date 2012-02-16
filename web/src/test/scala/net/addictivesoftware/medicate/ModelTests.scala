@@ -105,7 +105,7 @@ class ModelTest extends SpecificationWithJUnit  {
 
       Stock.find(By(Stock.medicine, glimepiride.id), By(Stock.user, user.id)) match {
         case Full(stock) => { stock.amount.is must be equalTo(179) }
-        case (_) => { 1 must_== 2 }
+        case (_) => { failure("No Stock found for Glimepiride") }
       }
 
     }
@@ -117,7 +117,7 @@ class ModelTest extends SpecificationWithJUnit  {
 
       Stock.find(By(Stock.medicine, methformine.id), By(Stock.user, user.id)) match {
         case Full(stock) => { stock.amount.is must be equalTo(178) }
-        case (_) => { 1 must_== 2 }
+        case (_) => { failure("No Stock found for Methformine") }
       }
     }
   }
