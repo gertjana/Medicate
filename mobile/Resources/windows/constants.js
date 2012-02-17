@@ -13,6 +13,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+var medicate={}
+//(function() {
+//	medicate.constants = {}
+	//medicate.constants.isAndroid = Ti.Platform.osname == 'android';
+//});
+
 
 var settings = {
     color1: '#000',
@@ -29,6 +35,7 @@ var DOSAGES_URI = "";
 var SUPPLIES_URI = "";
 var MEDICATION_URI = "";
 var TAKEDOSE_URI = "";
+var OPTIONS_URI = "";
 
 function loadPropertiesAndUris() {
     APIKEY = Ti.App.Properties.getString("key");
@@ -38,6 +45,7 @@ function loadPropertiesAndUris() {
     SUPPLIES_URI = BASE_URI + "/api/1.0/user/" + APIKEY + "/supplies";
     MEDICATION_URI = BASE_URI + "/api/1.0/medicine";
     TAKEDOSE_URI = BASE_URI + "/api/1.0/user/" + APIKEY + "/takedose";
+    OPTIONS_URI = BASE_URI + "/api/1.0/user/" + APIKEY + "/dosageoptions";
 }
 
 loadPropertiesAndUris();

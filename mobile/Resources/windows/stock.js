@@ -109,9 +109,21 @@ Titanium.UI.currentWindow.addEventListener('focus', function (e) {
     
 });
 
+var refresh = Ti.UI.createButton({
+	systemButton:Ti.UI.iPhone.SystemButton.REFRESH
+});
+
+refresh.addEventListener('click', function(){
+        xhr.open('GET',SUPPLIES_URI);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send();	
+});
+
+win.leftNavButton = refresh;
+
 
 var addStock = Titanium.UI.createButton({
-	title:'Add Stock'
+	systemButton:Ti.UI.iPhone.SystemButton.ADD
 });
 addStock.addEventListener('click', function()
 {

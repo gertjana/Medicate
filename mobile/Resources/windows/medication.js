@@ -127,4 +127,17 @@ tableView.addEventListener('click', function(e)
 });
 
 Titanium.UI.currentWindow.add(tableView);
+
+var refresh = Ti.UI.createButton({
+	systemButton:Ti.UI.iPhone.SystemButton.REFRESH
+});
+
+refresh.addEventListener('click', function(){
+        xhr.open('GET',SUPPLIES_URI);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send();	
+});
+
+win.leftNavButton = refresh;
+
 Ti.UI.currentWindow.fireEvent("focus", null);

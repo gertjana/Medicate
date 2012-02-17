@@ -16,8 +16,6 @@ limitations under the License.
 
 Ti.include("constants.js");
 
-Ti.API.info("home.js");
-
 var tableView;
 var data = [];
 var authors = [];
@@ -28,16 +26,12 @@ win.backgroundImage = '../images/gradientBackground.png';
 
 var xhr = Titanium.Network.createHTTPClient();
 
-
-xhr.onerror = function() {
-	alert("error");
+xhr.onerror = function(e) {
+	alert(e.error);
 }
 
-xhr.onload = function()
-{
+xhr.onload = function() {
     var supplies = JSON.parse(this.responseText).Supplies;    
-    
-    Ti.API.info("found " +supplies.length + " supplies")
     
     data = [];
 	section = Ti.UI.createTableViewSection();
@@ -108,36 +102,59 @@ xhr.onload = function()
 };
 
 
+
+
 Titanium.UI.currentWindow.addEventListener('focus', function (e) {
-		Ti.API.info("focus");
         reloadPropertiesAndUris();
 
-        Ti.API.info(SUPPLIES_URI);
-
+		Ti.API.info("getting supplies");
         xhr.open('GET',SUPPLIES_URI);
         xhr.setRequestHeader("Accept", "application/json");
         xhr.send();
-    
+        
+        Ti.API.info("getting options");
+        xhrOptions.open('GET', OPTIONS_URI);
+		xhrOptions.setRequestHeader("Accept", "application/json");
+		xhrOptions.send();
 });
 
 var picker = Ti.UI.createPicker({
   top:20
 });
 
+
 var optionsDialogOpts = {
-	options:['Wakeup', 'Breakfast', 'Lunch', 'Dinner', 'Bedtime', 'Cancel'],
-	cancel:5,
+	options:[],
+	cancel:0,
 	title:'Take dose for:'
 };
 
-if (isAndroid) {
-	optionsDialogOpts.selectedIndex = 5;
+var xhrOptions = Ti.Network.createHTTPClient()
+
+
+xhrOptions.onerror = function(e) {
+	alert(e.error);
 }
 
-var dialog = Titanium.UI.createOptionDialog(optionsDialogOpts);
+var dialog;
+var optionsLength;
+
+xhrOptions.onload = function() {
+	var options = JSON.parse(this.responseText).DosageOptions;
+	Ti.API.info(this.responseText);
+	Ti.API.info(JSON.parse(this.responseText));
+	Ti.API.info(options);
+	optionsLength = options.length;
+	
+	options.push('Cancel');
+	dialog.options = options;
+	dialog.cancel = options.length;	
+}
+
+dialog = Titanium.UI.createOptionDialog(optionsDialogOpts);
 dialog.addEventListener('click',function(e){
 	Ti.API.info('clicked' + e.index);
-	if (e.index != 5) { //cancel
+	if (e.index != optionsLength) { //cancel
 		var xhr2 = Ti.Network.createHTTPClient();
 		
 		Ti.API.info(TAKEDOSE_URI + "/" + dialog.options[e.index]);
@@ -159,7 +176,6 @@ dialog.addEventListener('click',function(e){
 		}				
 	}
 });
-
 
 tableView = Titanium.UI.createTableView({
 	data:data,
@@ -190,7 +206,6 @@ refresh.addEventListener('click', function(){
 
 win.leftNavButton = refresh;
 win.rightNavButton = takeDose;
-
 
 Titanium.UI.currentWindow.add(tableView);
 Titanium.UI.currentWindow.fireEvent("focus", null);
