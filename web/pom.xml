@@ -47,7 +47,7 @@
     <repository>
       <id>scala-tools.releases</id>
       <name>Scala-Tools Dependencies Repository for Releases</name>
-      <url>http://scala-tools.org/repo-releases</url>
+      <url>https://oss.sonatype.org/content/groups/scala-tools/</url>
     </repository>
     <repository>
       <id>java.net.maven2</id>
@@ -57,7 +57,7 @@
     <repository>
       <id>scala-tools.snapshots</id>
       <name>Scala-Tools Dependencies Repository for Snapshots</name>
-      <url>http://scala-tools.org/repo-snapshots</url>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
       <snapshots/>
     </repository>
     <repository>
@@ -89,7 +89,7 @@
     <dependency>
       <groupId>net.liftweb</groupId>
       <artifactId>lift-mapper_2.9.1</artifactId>
-      <version>2.4-SNAPSHOT</version>
+      <version>2.4</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -225,6 +225,11 @@
           <downloadSources>true</downloadSources>
         </configuration>
       </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.1.1</version>
+        </plugin>
       <plugin>
       	<groupId>org.apache.maven.plugins</groupId>
       	<artifactId>maven-site-plugin</artifactId>
