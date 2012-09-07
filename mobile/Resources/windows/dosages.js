@@ -119,10 +119,22 @@ Titanium.UI.currentWindow.addEventListener('focus', function (e) {
     
 });
 
+var refresh = Ti.UI.createButton({
+	systemButton:Ti.UI.iPhone.SystemButton.REFRESH
+});
+
+refresh.addEventListener('click', function(){
+        xhr.open('GET',SUPPLIES_URI);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send();	
+});
+
+win.leftNavButton = refresh;
 
 var addDose = Titanium.UI.createButton({
-	title:'Add Dose'
+	systemButton:Ti.UI.iPhone.SystemButton.ADD
 });
+
 addDose.addEventListener('click', function()
 {
 	Titanium.UI.createAlertDialog({title:'System Button', message:'Add Dose'}).show();
