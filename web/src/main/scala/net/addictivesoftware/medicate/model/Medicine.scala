@@ -33,12 +33,12 @@ class Medicine extends LongKeyedMapper[Medicine] with IdPK {
 
   object name extends MappedString(this, 140)
   object description extends MappedTextarea(this, 4000)
-  object amount extends MappedInt(this)
+  //object amount extends MappedInt(this)
 
   def asJson : JValue = Medicine.asJson(this)
   def asXml : Node  = Medicine.asXml(this)
 
-  override def toString : String = name.is + " (" + amount.is + "mg)"
+  override def toString : String = name.is
 }
 
 
@@ -48,8 +48,8 @@ object Medicine extends Medicine with LongKeyedMetaMapper[Medicine] with CRUDify
     ("medicine" ->
       ("id" -> medicine.id.is) ~
       ("name" -> medicine.name.is) ~
-      ("description" -> medicine.description.is) ~
-      ("amount" -> medicine.amount.is)
+      ("description" -> medicine.description.is) //~
+      //("amount" -> medicine.amount.is)
     )
   }
 

@@ -71,17 +71,17 @@ trait RestUtils extends CollectionUtils {
     */
    def calculateSupplies(user_id : Long) = {
        val dosages = Dose.findAll(By(Dose.user, user_id))
-       val dosageMap = scala.collection.mutable.Map[String, Long]();
+       val dosageMap = scala.collection.mutable.Map[String, Double]();
 
        //get a map of medicine and the amount of them taken daily
        dosages.foreach(dose => {
          val medicine = dose.medicine.obj.map(medicine => medicine.toString).openOr("");
-         dosageMap(medicine) = (dosageMap.getOrElseUpdate(medicine,0)+1)
+         dosageMap(medicine) = (dosageMap.getOrElseUpdate(medicine,0)+dose.amount)
        })
 
        //get a map of medicine and the amount in stock
        val stockMap = Stock.findAll(By(Stock.user, user_id))
-                           .map(stock => (stock.medicine.obj.map(medicine => medicine.toString).openOr(""), stock.amount.is))
+                           .map(stock => (stock.medicine.obj.map(medicine => medicine.toString).openOr(""), stock.amount.is * stock.dosage.is))
                            .toMap
        //merging the maps by medicine, while calculating stock/daily intake
        mergeMap(List(stockMap, makeImmutable(dosageMap)))((stock, dailyIntake) => stock / dailyIntake)
@@ -98,9 +98,9 @@ trait RestUtils extends CollectionUtils {
        Dose.findAll(By(Dose.user, user_id), By(Dose.schedule, schedule)).foreach(dose => {
            Stock.find(By(Stock.user, user_id), By(Stock.medicine, dose.medicine)) match {
              case Full(stock) => {
-               stock.amount(stock.amount.is-1);
+               stock.amount(((stock.amount.is*stock.dosage.is)-dose.amount.is)/stock.dosage.is);
                stock.save();
-               println("Reduced stock of " + stock.medicine.toString() + " by 1");
+               println("Reduced stock of " + stock.medicine.toString() + " by " + dose.amount.is);
              }
              case(_) => {
                println("Could not find stock for " + dose.medicine.toString());

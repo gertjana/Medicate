@@ -16,19 +16,21 @@ class ModelTest extends SpecificationWithJUnit  {
   InMemoryDB.init;
 
   // create some medicines
-  val methformine = Medicine.create.name("Methformine").amount(500).saveMe();
-  val glimepiride = Medicine.create.name("Glimepiride").amount(2).saveMe();
-  val omezopranol = Medicine.create.name("Omezopranol").amount(20).saveMe();
+  val methformine = Medicine.create.name("Methformine").saveMe();
+  val glimepiride = Medicine.create.name("Glimepiride").saveMe();
+  val omezopranol = Medicine.create.name("Omezopranol").saveMe();
 
   //Create a user
   val user = User.create.firstName("Theo").lastName("Tester").email("theo@tester.com").password("test").saveMe();
 
   //create some dosages/stock for this user
-  Dose.create.user(user).medicine(glimepiride).schedule(Schedule.Breakfast).save();
-  Dose.create.user(user).medicine(methformine).schedule(Schedule.Breakfast).save();
-  Dose.create.user(user).medicine(methformine).schedule(Schedule.Dinner).save();
-  Stock.create.user(user).medicine(methformine).amount(90).save();
-  Stock.create.user(user).medicine(glimepiride).amount(90).save();
+  Dose.create.user(user).medicine(glimepiride).amount(2).schedule(Schedule.Breakfast).save();
+  Dose.create.user(user).medicine(methformine).amount(500).schedule(Schedule.Breakfast).save();
+  Dose.create.user(user).medicine(methformine).amount(500).schedule(Schedule.Dinner).save();
+  Dose.create.user(user).medicine(glimepiride).amount(1).schedule(Schedule.Dinner).save();
+
+  Stock.create.user(user).medicine(methformine).dosage(500).amount(90).save();
+  Stock.create.user(user).medicine(glimepiride).dosage(2).amount(90).save();
 
   "The Database" should {
     "contain 3 medicines" in {
@@ -38,7 +40,7 @@ class ModelTest extends SpecificationWithJUnit  {
 
   "The Database" should {
     "contain 3 dosages" in {
-      Dose.findAll() must have size(3)
+      Dose.findAll() must have size(4)
     }
   }
 
@@ -49,52 +51,52 @@ class ModelTest extends SpecificationWithJUnit  {
   }
 
   "The toString() of Methformine" should {
-    "read Methformine (500mg)" in {
+    "read Methformine" in {
       val medicines : List[Medicine] =  Medicine.findAll(By(Medicine.name, "Methformine"));
-      medicines.head.toString() must be equalTo("Methformine (500mg)")
+      medicines.head.toString() must be equalTo("Methformine")
     }
   }
   
   "The toString() of Glimepiride" should {
-    "read Glimepiride (2mg)" in {
+    "read Glimepiride" in {
       val medicines : List[Medicine] =  Medicine.findAll(By(Medicine.name, "Glimepiride"));
-      medicines.head.toString() must be equalTo("Glimepiride (2mg)")
+      medicines.head.toString() must be equalTo("Glimepiride")
     }
   }
 
   "Supplies of user " + user.fullName should {
     "contain 2 items" in {
-      val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
+      val supplies:Map[String, Double] = MedicateRest.calculateSupplies(user.id);
       supplies.size must be equalTo(2)
     }
   }
   
   "First supply" should {
     "contain 45 days of Methformine" in {
-      val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
-      supplies.head._1 must be equalTo("Methformine (500mg)")
+      val supplies:Map[String, Double] = MedicateRest.calculateSupplies(user.id);
+      supplies.head._1 must be equalTo("Methformine")
       supplies.head._2 must be equalTo(45)
     }
   }
   
   "Second supply" should {
-    "contain 90 days of Glimepiride" in {
-      val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
-      supplies.tail.head._1 must be equalTo("Glimepiride (2mg)")
-      supplies.tail.head._2 must be equalTo(90)
+    "contain 60 days of Glimepiride" in {
+      val supplies:Map[String, Double] = MedicateRest.calculateSupplies(user.id);
+      supplies.tail.head._1 must be equalTo("Glimepiride")
+      supplies.tail.head._2 must be equalTo(60)
     }
   }
   
   "Taking a dose at breakfast and one at dinner" should {
-    "reduce the supplies of glimepridie by one, and methformine by two" in {
+    "reduce the supplies of glimepiride by 1.5, and methformine by two" in {
       MedicateRest.takeDose(user.id, Schedule.Breakfast);
       MedicateRest.takeDose(user.id, Schedule.Dinner);
 
-      val supplies:Map[String, Long] = MedicateRest.calculateSupplies(user.id);
-      supplies.head._1 must be equalTo("Methformine (500mg)")
+      val supplies:Map[String, Double] = MedicateRest.calculateSupplies(user.id);
+      supplies.head._1 must be equalTo("Methformine")
       supplies.head._2 must be equalTo(44)
-      supplies.tail.head._1 must be equalTo("Glimepiride (2mg)")
-      supplies.tail.head._2 must be equalTo(89)
+      supplies.tail.head._1 must be equalTo("Glimepiride")
+      supplies.tail.head._2 must be equalTo(59)
     }
   }
   
@@ -104,7 +106,7 @@ class ModelTest extends SpecificationWithJUnit  {
       MedicateRest.addStock(user.id, glimepiride.id, 90);
 
       Stock.find(By(Stock.medicine, glimepiride.id), By(Stock.user, user.id)) match {
-        case Full(stock) => { stock.amount.is must be equalTo(179) }
+        case Full(stock) => { stock.amount.is must be equalTo(178.5) }
         case (_) => { failure("No Stock found for Glimepiride") }
       }
 

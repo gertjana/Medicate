@@ -146,7 +146,7 @@ object MedicateRest extends RestHelper with RestUtils {
 
     case key :: "supplies" :: _ JsonGet _=> {
       var id = getUserIdFromKey(key)
-      val supplies:Map[String, Long] = calculateSupplies(id)
+      val supplies:Map[String, Double] = calculateSupplies(id)
 
       ("Supplies" -> {
         supplies.toList.sortBy(_._1).map(kv => {

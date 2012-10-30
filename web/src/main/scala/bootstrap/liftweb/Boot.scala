@@ -22,9 +22,8 @@ import _root_.net.liftweb.http._
 import _root_.net.liftweb.http.provider._
 import _root_.net.liftweb.sitemap._
 import _root_.net.liftweb.sitemap.Loc._
-import Helpers._
 import _root_.net.liftweb.mapper._
-import _root_.java.sql.{Connection, DriverManager}
+import _root_.java.sql.Connection
 import _root_.net.addictivesoftware.medicate.model._
 import _root_.net.addictivesoftware.medicate.rest._
 

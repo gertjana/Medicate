@@ -39,7 +39,8 @@ class Stock extends LongKeyedMapper[Stock] with IdPK {
     override def validSelectValues = { Full(for (medicine <- Medicine.findAll) yield (medicine.id.is, medicine.name.is)) }
   }
 
-  object amount extends MappedLong(this)
+  object dosage extends MappedDouble(this)
+  object amount extends MappedDouble(this)
 
   def asJson : JValue = Stock.asJson(this)
   def asXml : Node  = Stock.asXml(this)
@@ -52,6 +53,7 @@ object Stock extends Stock with LongKeyedMetaMapper[Stock] with CRUDify[Long, St
      ("stock" ->
        ("id" -> stock.id.is) ~
        ("medicine" -> stock.medicine.obj.map(medicine => medicine.toString).openOr("")) ~
+       ("dosage" -> stock.dosage.is)~
        ("amount" -> stock.amount.is)
      )
    }

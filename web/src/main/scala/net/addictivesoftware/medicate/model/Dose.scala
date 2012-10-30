@@ -38,6 +38,8 @@ class Dose extends LongKeyedMapper[Dose] with IdPK {
    override def validSelectValues = { Full(for (medicine <- Medicine.findAll) yield (medicine.id.is, medicine.name.is)) }
   }
 
+  object amount extends MappedDouble(this)
+
   object schedule extends MappedEnum(this, Schedule)
 
   def asJson : JValue = Dose.asJson(this)
@@ -49,7 +51,8 @@ object Dose extends Dose with LongKeyedMetaMapper[Dose] with CRUDify[Long, Dose]
     ("dose" ->
       ("id" -> dose.id.is) ~
       ("medicine" -> dose.medicine.obj.map(medicine => medicine.toString).openOr("")) ~
-      ("schedule" -> dose.schedule.is.toString())
+      ("schedule" -> dose.schedule.is.toString()) ~
+      ("amount" -> dose.amount.is)
     )
   }
 
