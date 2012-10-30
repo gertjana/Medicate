@@ -1,3 +1,5 @@
 # Properties in this file will be read when running in dev mode
-db.class=org.h2.Driver
-db.url=jdbc:h2:lift_proto.db;AUTO_SERVER=TRUE
+db.driver=com.mysql.jdbc.Driver
+db.url=jdbc:mysql://127.7.124.1:3306/medicate
+db.user=admin
+db.password=tstlhd
