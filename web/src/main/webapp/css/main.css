@@ -104,7 +104,7 @@ div.header {
     padding:5px;
     color:#369;
     text-align: left;
-    background-color: #369;
+    background-image:url('../images/header-bg.png');
     background: -webkit-gradient(linear, left top, left bottom, from(#369), to(#69c));
     background: -moz-linear-gradient(top, #369, #69c);
     margin:0px;
@@ -112,11 +112,11 @@ div.header {
 div.footer {
     width:800px;
     padding:5px;
-    color:#CCC;
+    color:#CCC; 
     text-align: left;
     background: #369;
-    background: -webkit-gradient(linear, left top, left bottom, from(#369), to(#69c));
-    background: -moz-linear-gradient(top, #369, #69c);
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#369), to(#69c));
+    background: -moz-linear-gradient(top, #369, #69c);*/
 }
 div.header a, div.header a:hover, div.header a:visited {
     color:#CCC;
