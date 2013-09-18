@@ -178,14 +178,3 @@ win.add(urlTextField);
 win.add(usernameTextField);
 win.add(passwordTextField);
 
-
-var fbButton = Titanium.Facebook.createLoginButton({
-	'style':'wide',
-	'appid':'bla',
-	'apikey':'9494e611f2a93b8d7bfcdfa8cefdaf9f',
-	'sessionProxy':'http://api.appcelerator.net/p/fbconnect/',
-    top:100,
-    height:100
-});
-//win.add(fbButton);
-
