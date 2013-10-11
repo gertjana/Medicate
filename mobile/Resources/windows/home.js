@@ -28,7 +28,7 @@ var xhr = Titanium.Network.createHTTPClient();
 
 xhr.onerror = function(e) {
 	alert(e.error);
-}
+};
 
 xhr.onload = function() {
     var supplies = JSON.parse(this.responseText).Supplies;    
@@ -129,12 +129,12 @@ var optionsDialogOpts = {
 	title:'Take dose for:'
 };
 
-var xhrOptions = Ti.Network.createHTTPClient()
+var xhrOptions = Ti.Network.createHTTPClient();
 
 
 xhrOptions.onerror = function(e) {
 	alert(e.error);
-}
+};
 
 var dialog;
 var optionsLength;
@@ -149,7 +149,7 @@ xhrOptions.onload = function() {
 	options.push('Cancel');
 	dialog.options = options;
 	dialog.cancel = options.length;	
-}
+};
 
 dialog = Titanium.UI.createOptionDialog(optionsDialogOpts);
 dialog.addEventListener('click',function(e){
@@ -165,7 +165,7 @@ dialog.addEventListener('click',function(e){
 		
 		xhr2.onerror = function() {
 			alert("An error occured taking a dose");
-		}
+		};
 	
 		xhr2.onload = function() {
 			Titanium.UI.createAlertDialog({title:'Take dose', message:'your daily dose is taken'}).show();
@@ -173,7 +173,7 @@ dialog.addEventListener('click',function(e){
 			xhr.open('GET',SUPPLIES_URI);
 	        xhr.setRequestHeader("Accept", "application/json");
 	        xhr.send();	
-		}				
+		};				
 	}
 });
 

@@ -22,7 +22,7 @@ limitations under the License.
 
 	httpClient.onerror = function(e) {
 		Titanium.UI.createAlertDialog({title:'Network', message:e.error}).show();
-	}
+	};
 
 	function getJsonFromUrl(u,c) {
 		
