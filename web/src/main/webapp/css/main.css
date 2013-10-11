@@ -99,7 +99,6 @@ div.container {
 }
 
 div.header {
-    float:left;
     width:800px;
     padding:5px;
     color:#369;
@@ -153,7 +152,7 @@ ul.menu {
 }
 
 ul.menu li {
-	position: relative;
+/*	position: relative;*/
 	text-align: center;
 	display: inline-block;
 }

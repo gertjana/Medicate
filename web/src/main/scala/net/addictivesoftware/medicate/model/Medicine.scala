@@ -16,17 +16,15 @@
 
 package net.addictivesoftware.medicate.model
 
-import _root_.net.liftweb.mapper._
-import _root_.net.liftweb.util._
-import _root_.net.liftweb.http._
-import _root_.net.liftweb.common._
-import _root_.net.liftweb.sitemap.Loc._
-import _root_.net.liftweb.json._
-import _root_.net.liftweb.json.JsonDSL._
-import _root_.scala.xml.Node
+import net.liftweb.mapper._
+import net.liftweb.http._
+import net.liftweb.sitemap.Loc._
+import net.liftweb.json._
+import net.liftweb.json.JsonDSL._
+import scala.xml.Node
 
 /**
- * Class respresenting a Medicine in a certain amount
+ * Class representing a Medicine in a certain amount
  */
 class Medicine extends LongKeyedMapper[Medicine] with IdPK {
   def getSingleton = Medicine
@@ -45,12 +43,9 @@ class Medicine extends LongKeyedMapper[Medicine] with IdPK {
 object Medicine extends Medicine with LongKeyedMetaMapper[Medicine] with CRUDify[Long, Medicine] {
 
   def asJson (medicine : Medicine) : JValue = {
-    ("medicine" ->
-      ("id" -> medicine.id.is) ~
+    (("id" -> medicine.id.is) ~
       ("name" -> medicine.name.is) ~
-      ("description" -> medicine.description.is) //~
-      //("amount" -> medicine.amount.is)
-    )
+      ("description" -> medicine.description.is))
   }
 
   def asXml (medicine : Medicine) : Node = Xml.toXml(asJson(medicine)).head
