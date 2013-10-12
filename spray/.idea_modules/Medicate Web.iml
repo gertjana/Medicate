@@ -1,0 +1,70 @@
+<module version="4" type="JAVA_MODULE">
+  <component name="FacetManager">
+    <facet name="Scala" type="scala">
+      <configuration>
+        <option name="compilerLibraryLevel" value="Project"></option>
+        <option name="compilerLibraryName" value="SBT: scala:2.10.3"></option>
+        <option name="fsc" value="true"></option>
+        <option name="deprecationWarnings" value="true"></option>
+        <option name="uncheckedWarnings" value="true"></option>
+        <option name="compilerOptions" value="-unchecked -deprecation -encoding utf8"></option>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../target/scala-2.10/classes"></output>
+    <output-test url="file://$MODULE_DIR$/../target/scala-2.10/test-classes"></output-test>
+    <exclude-output></exclude-output>
+    <content url="file://$USER_HOME$/Projects/Medicate/spray">
+      <sourceFolder url="file://$MODULE_DIR$/../src/main/scala" isTestSource="false" ></sourceFolder>
+      <sourceFolder url="file://$MODULE_DIR$/../src/main/java" isTestSource="false" ></sourceFolder>
+      <sourceFolder url="file://$MODULE_DIR$/../src/main/resources" isTestSource="false" ></sourceFolder>
+      <sourceFolder url="file://$MODULE_DIR$/../src/test/scala" isTestSource="true" ></sourceFolder>
+      <sourceFolder url="file://$MODULE_DIR$/../src/test/java" isTestSource="true" ></sourceFolder>
+      <sourceFolder url="file://$MODULE_DIR$/../src/test/resources" isTestSource="true" ></sourceFolder>
+      <excludeFolder url="file://$MODULE_DIR$/../target"></excludeFolder>
+    </content>
+    <orderEntry type="inheritedJdk"></orderEntry>
+    <orderEntry type="sourceFolder" forTests="false"></orderEntry>
+    <orderEntry level="project" name="SBT: org.scala-lang:scala-library:2.10.3" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: io.spray:spray-http:1.1-M8" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.parboiled:parboiled-scala_2.10:1.1.5" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.parboiled:parboiled-core:1.1.5" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: io.spray:spray-can:1.1-M8" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: io.spray:spray-io:1.1-M8" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: io.spray:spray-util:1.1-M8" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: io.spray:spray-routing:1.1-M8" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: io.spray:spray-httpx:1.1-M8" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.jvnet.mimepull:mimepull:1.9.2" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: com.chuusai:shapeless_2.10:1.2.4" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: io.spray:spray-json_2.10:1.2.5" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: com.typesafe.akka:akka-actor_2.10:2.1.4" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: com.typesafe:config:1.0.0" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: com.typesafe.akka:akka-slf4j_2.10:2.1.4" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.slf4j:slf4j-api:1.7.2" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: ch.qos.logback:logback-classic:0.9.27" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: ch.qos.logback:logback-core:0.9.27" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: com.novus:salat-core_2.10:1.9.4-SNAPSHOT" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: com.novus:salat-util_2.10:1.9.4-SNAPSHOT" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.scala-lang:scalap:2.10.3" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.scala-lang:scala-compiler:2.10.3" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.scala-lang:scala-reflect:2.10.3" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.mongodb:casbah-core_2.10:2.6.4" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.mongodb:casbah-commons_2.10:2.6.4" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: com.github.nscala-time:nscala-time_2.10:0.2.0" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: joda-time:joda-time:2.1" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.joda:joda-convert:1.2" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.mongodb:mongo-java-driver:2.11.3" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.mongodb:casbah-query_2.10:2.6.4" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.json4s:json4s-native_2.10:3.2.5" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.json4s:json4s-core_2.10:3.2.5" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.json4s:json4s-ast_2.10:3.2.5" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: com.thoughtworks.paranamer:paranamer:2.5.6" type="library"></orderEntry>
+    <orderEntry level="project" name="SBT: org.mockito:mockito-all:1.9.0" type="library"></orderEntry>
+    <orderEntry type="library" name="SBT: io.spray:spray-testkit:1.1-M8:test" level="project" scope="TEST"></orderEntry>
+    <orderEntry type="library" name="SBT: org.specs2:specs2_2.10:2.2.2:test" level="project" scope="TEST"></orderEntry>
+    <orderEntry type="library" name="SBT: org.scalaz:scalaz-core_2.10:7.0.2:test" level="project" scope="TEST"></orderEntry>
+    <orderEntry type="library" name="SBT: org.scalaz:scalaz-concurrent_2.10:7.0.2:test" level="project" scope="TEST"></orderEntry>
+    <orderEntry type="library" name="SBT: org.scalaz:scalaz-effect_2.10:7.0.2:test" level="project" scope="TEST"></orderEntry>
+  </component>
+</module>
