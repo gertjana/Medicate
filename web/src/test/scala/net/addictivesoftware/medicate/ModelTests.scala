@@ -1,6 +1,6 @@
 package net.addictivesoftware.medicate
 
-import org.specs2.mutable.SpecificationWithJUnit
+import org.specs2.mutable._
 import net.addictivesoftware.medicate.model.{Medicine, Dose, Stock, Schedule, User}
 import net.addictivesoftware.medicate.rest.MedicateRest
 import net.liftweb.mapper.By
@@ -100,10 +100,10 @@ class ModelTest extends SpecificationWithJUnit  {
     }
   }
   
-  
+  /*
   "Adding stock for glimepiride" should {
     "increase the amount by 90" in {
-      MedicateRest.addStock(user.id, glimepiride.id, 90);
+      MedicateRest.addStock(user.id, glimepiride.id, 90)
 
       Stock.find(By(Stock.medicine, glimepiride.id), By(Stock.user, user.id)) match {
         case Full(stock) => { stock.amount.is must be equalTo(178.5) }
@@ -111,22 +111,23 @@ class ModelTest extends SpecificationWithJUnit  {
       }
 
     }
-  }
+  } */
 
+  /*
   "Adding stock for methformine" should {
     "increase the amount by 90" in {
-      MedicateRest.addStock(user.id, methformine.id, 90);
+      MedicateRest.addStock(user.id, methformine.id, 90)
 
       Stock.find(By(Stock.medicine, methformine.id), By(Stock.user, user.id)) match {
         case Full(stock) => { stock.amount.is must be equalTo(178) }
         case (_) => { failure("No Stock found for Methformine") }
       }
     }
-  }
+  } */
 
   "Getting the times a dosage needs to be taken" should {
     "return 2 items: Breakfast and Dinner" in {
-      val options = MedicateRest.getDosageOptions(user.id);
+      val options = MedicateRest.getDosageOptions(user.id)
       options.size must be equalTo(2)
       options.head must be equalTo("Breakfast");
       options.tail.head must be equalTo("Dinner");
