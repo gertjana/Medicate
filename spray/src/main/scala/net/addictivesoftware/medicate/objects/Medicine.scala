@@ -36,16 +36,24 @@ object Medicine {
     }
   }
 
-  def update(id: ObjectId, medicine:MedicineObject) = {
+  def update(id: String, medicine:MedicineObject) = {
     MedicineDAO.update(MongoDBObject("_id" -> id), grater[MedicineObject].asDBObject(medicine))
   }
 
   def getById(id:String):Option[MedicineObject] = {
-    MedicineDAO.find(MongoDBObject("_id" -> id))
+    MedicineDAO.find(MongoDBObject("_id" -> new ObjectId(id)))
       .limit(1)
       .toList
       .headOption
   }
+
+  def getByNr(nr:Int):Option[MedicineObject] = {
+    MedicineDAO.find(MongoDBObject("nr" -> nr))
+      .limit(1)
+      .toList
+      .headOption
+  }
+
 
   def list():List[MedicineObject] = {
     MedicineDAO.find(MongoDBObject()).toList

@@ -16,6 +16,7 @@ object MedicateMongoConnection {
       case _:Exception => {} // ignoring authentication exception when authentication is turned off on the mongodb server
     }
 
-    db("medicine")
+    val collection = db("medicine")
+    collection
   }
 }

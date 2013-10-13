@@ -5,7 +5,8 @@ import spray.routing.HttpService
 import spray.httpx.SprayJsonSupport
 import spray.http.MediaTypes.{`text/html`, `text/plain`, `application/json`}
 import net.addictivesoftware.medicate.WebPages
-import net.addictivesoftware.medicate.objects.Medicine
+import net.addictivesoftware.medicate.objects.{MedicineObject, Medicine}
+import org.bson.types.ObjectId
 
 //implicit marshallers/unmarshallers
 import spray.json.DefaultJsonProtocol._
@@ -26,6 +27,7 @@ class MedicateService extends Actor with MedicateRoutingService {
  */
 trait MedicateRoutingService extends HttpService with WebPages with SprayJsonSupport {
   val Ok = "Ok"
+  val NoResults = "No Results found"
 
   val medicateRoute = pathPrefix("api") {
     path("medicine") {
@@ -37,12 +39,38 @@ trait MedicateRoutingService extends HttpService with WebPages with SprayJsonSup
         }
       }
     } ~
-    path("medicine" / "\\w+".r) {id =>
+    path("medicine" / "\\d+".r) {id =>
       get {
         respondWithMediaType(`application/json`) {
           complete {
-            Medicine.getById(id)
+             Medicine.getByNr(id.toInt) match {
+               case Some(m) => {
+                 m
+               }
+               case (_) => {
+                 NoResults
+               }
+             }
           }
+        }
+      } ~
+      post {
+        entity(as[MedicineObject]) { medicine =>
+          complete {
+            Medicine.insert(medicine)
+          }
+        }
+      } ~
+      put {
+        entity(as[MedicineObject]) { medicine =>
+          complete {
+            Medicine.update(id, medicine)
+          }
+        }
+      } ~
+      delete {
+        complete {
+          Medicine.deleteById(id)
         }
       }
     } ~

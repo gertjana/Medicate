@@ -6,9 +6,11 @@ organization := "net.addictivesoftware.medicate"
 
 version := "0.1.0-SNAPSHOT"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.10.2"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
+
+scalacOptions in Test ++= Seq("-Yrangepos")
 
 jarName in assembly := "medicate-spray.jar"
 
@@ -30,7 +32,7 @@ libraryDependencies ++= Seq(
     "io.spray" % "spray-testkit" % "1.1-M8" % "test",
     "com.typesafe.akka" %% "akka-actor" % "2.1.4",
     "com.typesafe.akka" %% "akka-slf4j" % "2.1.4",
-    "org.specs2" %% "specs2" % "2.2.2" % "test",
+    "org.specs2" %% "specs2" % "2.2.3" % "test",
     "ch.qos.logback" % "logback-classic" % "0.9.27",
     "com.novus" %% "salat-core" % "1.9.4-SNAPSHOT"
 )
