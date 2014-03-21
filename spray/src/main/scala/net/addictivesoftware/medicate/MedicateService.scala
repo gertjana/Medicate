@@ -44,12 +44,8 @@ trait MedicateRoutingService extends HttpService with WebPages with SprayJsonSup
         respondWithMediaType(`application/json`) {
           complete {
              Medicine.getByNr(id.toInt) match {
-               case Some(m) => {
-                 m
-               }
-               case (_) => {
-                 NoResults
-               }
+               case Some(medicine) => medicine
+               case _ => NoResults
              }
           }
         }
