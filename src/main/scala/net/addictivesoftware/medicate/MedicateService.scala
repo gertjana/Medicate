@@ -3,14 +3,10 @@ package net.addictivesotware.flow
 import akka.actor.Actor
 import spray.routing.HttpService
 import spray.httpx.SprayJsonSupport
-import spray.http.MediaTypes.{`text/html`, `text/plain`, `application/json`}
-import net.addictivesoftware.medicate.WebPages
+import spray.http.MediaTypes.{`text/plain`, `application/json`}
+import net.addictivesoftware.medicate.{Result, MyJsonProtocol, WebPages}
 import net.addictivesoftware.medicate.objects.{MedicineObject, Medicine}
-import org.bson.types.ObjectId
 
-//implicit marshallers/unmarshallers
-import spray.json.DefaultJsonProtocol._
-import net.addictivesoftware.medicate.MyJsonProtocol._
 
 
 /**
@@ -25,7 +21,7 @@ class MedicateService extends Actor with MedicateRoutingService {
 /**
  * Trait that contains the route to execute
  */
-trait MedicateRoutingService extends HttpService with WebPages with SprayJsonSupport {
+trait MedicateRoutingService extends HttpService with WebPages with SprayJsonSupport with MyJsonProtocol {
   val Ok = "Ok"
   val NoResults = "No Results found"
 
@@ -60,13 +56,13 @@ trait MedicateRoutingService extends HttpService with WebPages with SprayJsonSup
       put {
         entity(as[MedicineObject]) { medicine =>
           complete {
-            Medicine.update(id, medicine)
+            Result(Medicine.update(id, medicine).toString)
           }
         }
       } ~
       delete {
         complete {
-          Medicine.deleteById(id)
+          Result(Medicine.deleteById(id).toString)
         }
       }
     } ~

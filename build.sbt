@@ -6,7 +6,7 @@ organization := "net.addictivesoftware.medicate"
 
 version := "0.1.0-SNAPSHOT"
 
-scalaVersion := "2.10.2"
+scalaVersion := "2.10.4"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 
@@ -24,17 +24,17 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-    "io.spray" % "spray-http" % "1.1-M8",
-    "io.spray" % "spray-can" % "1.1-M8",
-    "io.spray" % "spray-io" % "1.1-M8",
-    "io.spray" % "spray-routing" % "1.1-M8",
-    "io.spray" %  "spray-json_2.10" % "1.2.5",
-    "io.spray" % "spray-testkit" % "1.1-M8" % "test",
-    "com.typesafe.akka" %% "akka-actor" % "2.1.4",
-    "com.typesafe.akka" %% "akka-slf4j" % "2.1.4",
+    "io.spray" % "spray-http" % "1.3.1",
+    "io.spray" % "spray-can" % "1.3.1",
+    "io.spray" % "spray-io" % "1.3.1",
+    "io.spray" % "spray-routing" % "1.3.1",
+    "io.spray" %  "spray-json_2.10" % "1.3.0",
+    "io.spray" % "spray-testkit" % "1.3.1" % "test",
+    "com.typesafe.akka" %% "akka-actor" % "2.3.2",
+    "com.typesafe.akka" %% "akka-slf4j" % "2.3.2",
     "org.specs2" %% "specs2" % "2.2.3" % "test",
     "ch.qos.logback" % "logback-classic" % "0.9.27",
-    "com.novus" %% "salat-core" % "1.9.4-SNAPSHOT"
+    "com.novus" %% "salat-core" % "1.9.9"
 )
 
 seq(Revolver.settings: _*)
