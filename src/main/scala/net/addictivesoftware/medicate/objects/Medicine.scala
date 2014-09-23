@@ -6,7 +6,7 @@ import com.mongodb.casbah.Imports._
 import com.novus.salat._
 import com.novus.salat.global._
 import scala.Some
-import net.addictivesoftware.medicate.MedicateMongoConnection
+import net.addictivesoftware.medicate.{MyJsonProtocol, MedicateMongoConnection}
 
 case class MedicineObject (
   @Key("id") _id:ObjectId = new ObjectId(),
@@ -19,7 +19,7 @@ case class MedicineObject (
 
 object MedicineDAO extends SalatDAO[MedicineObject, ObjectId](collection = MedicateMongoConnection.getMedicineCollection)
 
-object Medicine {
+object Medicine extends MyJsonProtocol {
 
   def insert(medicine:MedicineObject):Option[ObjectId] = {
     MedicineDAO.insert(medicine)
@@ -31,13 +31,13 @@ object Medicine {
 
   def deleteById(id:String) = {
     getById(id) match {
-      case Some(medicine) => { delete(medicine) }
+      case Some(medicine) => { delete(medicine).getN }
       case _ => {}
     }
   }
 
   def update(id: String, medicine:MedicineObject) = {
-    MedicineDAO.update(MongoDBObject("_id" -> id), grater[MedicineObject].asDBObject(medicine))
+    MedicineDAO.update(MongoDBObject("_id" -> id), grater[MedicineObject].asDBObject(medicine)).getN
   }
 
   def getById(id:String):Option[MedicineObject] = {

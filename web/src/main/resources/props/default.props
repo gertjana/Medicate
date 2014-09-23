@@ -1,5 +1,0 @@
-# Properties in this file will be read when running in dev mode
-db.driver=com.mysql.jdbc.Driver
-db.url=jdbc:mysql://localhost:3306/medicate
-db.user=admin
-db.password=tstlhd

@@ -1,0 +1,8 @@
+language: scala
+scala:
+    - 2.10.4
+    - 2.11.2
+
+script:
+  - export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M"
+  - sbt clean scoverage:test package

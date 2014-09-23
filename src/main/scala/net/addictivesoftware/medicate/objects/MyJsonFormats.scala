@@ -9,7 +9,9 @@ case class Result(result:String)
 case class Error(error:String)
 
 
-object MyJsonProtocol {
+object MyJsonProtocol extends MyJsonProtocol
+
+trait MyJsonProtocol extends DefaultJsonProtocol {
 
   //implicit val medicineObjectFormat = jsonFormat(MedicineObject,"_id", "id", "nr", "name", "brand", "amount")
 
@@ -17,7 +19,7 @@ object MyJsonProtocol {
 
   implicit val ErrorFormat = jsonFormat(Error, "error")
  
-  implicit val objectIdFormat:JsonFormat[ObjectId] = new JsonFormat[ObjectId] {
+  implicit object objectIdFormat extends RootJsonFormat[ObjectId] {
     def write(o:ObjectId) = JsString(o.toString)
     def read(value:JsValue) = new ObjectId(value.toString())
   }
