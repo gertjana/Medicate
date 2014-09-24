@@ -3,10 +3,11 @@
 
 manage your medication, amounts, schedules, alerts
 
-The web project is maven based, to run it:
+The web project is sbt based, to run it:
  - install sbt
  - clone this repository
  - run `sbt container:start`
+ - 
 
 
 The mobile project is built with titanium appcelerator
